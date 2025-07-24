@@ -6,7 +6,7 @@ public class FishMove : MonoBehaviour
     private Vector2 direction;
     private bool isDragging = false;
     [SerializeField] private float speed = 2.5f;
-
+    public bool isMoving => isDragging && direction != Vector2.zero;
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))

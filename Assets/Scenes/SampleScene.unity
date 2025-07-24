@@ -351,6 +351,7 @@ GameObject:
   - component: {fileID: 1797458623}
   - component: {fileID: 1797458622}
   - component: {fileID: 1797458624}
+  - component: {fileID: 1797458625}
   m_Layer: 0
   m_Name: Fish
   m_TagString: Untagged
@@ -440,6 +441,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e1c72758166ead47ab39492c0b4d5e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 5
+--- !u!114 &1797458625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797458621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f0a28a8369d7b242b9d893819eeb88b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite1: {fileID: -855298285791758126, guid: a1a204c89da59c64898479705821d5da, type: 3}
+  sprite2: {fileID: 6937817954938267909, guid: b8162efafb064a248b74de1ea7acd98c, type: 3}
+  fishMover: {fileID: 1797458624}
+  switchInterval: 0.3
 --- !u!1 &2121515615
 GameObject:
   m_ObjectHideFlags: 0
