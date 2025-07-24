@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 384907510}
   - component: {fileID: 384907509}
   - component: {fileID: 384907512}
+  - component: {fileID: 384907513}
   m_Layer: 0
   m_Name: Baloon
   m_TagString: Untagged
@@ -256,6 +257,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0258cb2a28a4443a41ac6ca110a2fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &384907513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384907508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1bf34031d59c8c43ad231f860ef2704, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyFrames:
+  - {fileID: -855298285791758126, guid: 02875005fe66a894b94742c68d3e8e7a, type: 3}
+  - {fileID: 6937817954938267909, guid: 685b418997aa91140924a30081220b5e, type: 3}
+  - {fileID: -6470460504253458178, guid: 4d6ce11df2940954db4706e53503d6c0, type: 3}
+  - {fileID: -4178046375966092550, guid: f8f38462f6d320447876643eb905c17a, type: 3}
+  - {fileID: 4130640169021434097, guid: 86959b570ca3b1d44a0409a00a947da8, type: 3}
+  - {fileID: 3465286685962602723, guid: 57627c610f9ba7649a55ffd2ed4013fb, type: 3}
+  - {fileID: 7028616704906629411, guid: a71e66012b431044c8d1ee87c187681c, type: 3}
+  frameInterval: 0.05
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

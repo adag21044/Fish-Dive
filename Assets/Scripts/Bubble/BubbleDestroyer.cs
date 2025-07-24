@@ -2,12 +2,20 @@ using UnityEngine;
 
 public class BubbleDestroyer : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D other)
+    private BubbleDestroyAnimator bubbleDestroyAnimator;
+
+    private void Start()
+    {
+        bubbleDestroyAnimator = GetComponent<BubbleDestroyAnimator>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Fish"))
         {
             Debug.Log("Bubble destroyed by fish: " + other.name);
-            Destroy(gameObject);
+            bubbleDestroyAnimator.StartDestroyAnimation();
+            GetComponent<Collider2D>().enabled = false; // Disable the collider to prevent multiple triggers
         }
     }
 
