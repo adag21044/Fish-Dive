@@ -1,12 +1,19 @@
+using System;
 using UnityEngine;
 
 public class FishMove : MonoBehaviour
 {
+    public event Action OnStartMoving;
+    public event Action OnStopMoving;
+
     private Vector2 touchStartPosition;
     private Vector2 direction;
     private bool isDragging = false;
+    private bool wasMovingLastFrame = false;
+
     [SerializeField] private float speed = 2.5f;
     public bool isMoving => isDragging && direction != Vector2.zero;
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -25,6 +32,20 @@ public class FishMove : MonoBehaviour
         {
             isDragging = false;
             direction = Vector2.zero;
+        }
+
+        if (isMoving != wasMovingLastFrame)
+        {
+            if (isMoving)
+            {
+                OnStartMoving?.Invoke();
+            }
+            else
+            {
+                OnStopMoving?.Invoke();
+            }
+
+            wasMovingLastFrame = isMoving;
         }
     }
 
