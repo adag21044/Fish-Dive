@@ -1,7 +1,9 @@
-[System.Serializable]
-public class LevelData
+using UnityEngine;
+
+[CreateAssetMenu(menuName = "LevelDataSO/LevelDataSO")]
+public class LevelDataSO : ScriptableObject
 {
-    public int _level;
+    public int level;
     public int optimumquestioncount;
     public int minnumber;
     public int maxnumber;
