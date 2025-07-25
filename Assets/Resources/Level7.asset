@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9ecc626626f54a49b9a0d90acc4bc37, type: 3}
-  m_Name: Level5
+  m_Name: Level7
   m_EditorClassIdentifier: 
-  level: 5
-  optimumquestioncount: 0
-  minnumber: 0
-  maxnumber: 0
-  mindelaycount: 0
-  maxdelaycount: 0
-  spawncount: 0
-  spawninterval: 0
-  speed: 0
-  combospeedratio: 0
+  level: 7
+  optimumquestioncount: 6
+  minnumber: 1
+  maxnumber: 10
+  mindelaycount: 2
+  maxdelaycount: 4
+  spawncount: 2
+  spawninterval: 2.4
+  speed: 2
+  combospeedratio: 1.2
