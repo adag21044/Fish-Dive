@@ -4,10 +4,14 @@ public class FishSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject fish;
     [SerializeField] Transform spawnPoint;
+    [SerializeField] private SceneDrawer sceneDrawer;
 
     private void Awake()
     {
-        SpawnFish();
+        if (sceneDrawer != null)
+        {
+            sceneDrawer.OnSceneDrawn += SpawnFish;
+        }
     }
 
     private void SpawnFish()
@@ -15,6 +19,7 @@ public class FishSpawner : MonoBehaviour
         if (fish != null && spawnPoint != null)
         {
             fish.SetActive(true);
+            Debug.Log("Fish spawned at: " + spawnPoint.position);
         }
         else
         {

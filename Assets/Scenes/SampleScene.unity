@@ -838,6 +838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fish: {fileID: 1797458621}
   spawnPoint: {fileID: 1799830907}
+  sceneDrawer: {fileID: 1273880007}
 --- !u!4 &932978985
 Transform:
   m_ObjectHideFlags: 0
