@@ -37,13 +37,9 @@ public class FishMove : MonoBehaviour
         if (isMoving != wasMovingLastFrame)
         {
             if (isMoving)
-            {
                 OnStartMoving?.Invoke();
-            }
             else
-            {
                 OnStopMoving?.Invoke();
-            }
 
             wasMovingLastFrame = isMoving;
         }
@@ -59,6 +55,4 @@ public class FishMove : MonoBehaviour
             transform.up = moveDir; // Rotate the fish to face the direction of movement
         }
     }
-
-
 }

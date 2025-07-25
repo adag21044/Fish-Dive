@@ -7,13 +7,9 @@ public class FishSoundManager : MonoBehaviour
     [SerializeField] private AudioClip fishMovementSound;
     [SerializeField] private AudioSource audioSource;
 
-    [Header("Fish Movement")]
-    [SerializeField] private FishMove fishMover;
-
     [Header("Fade Settings")]
-    [SerializeField] private float fadeOutTime = 0.6f;   // saniye
-    [SerializeField] private AnimationCurve fadeCurve =
-        AnimationCurve.EaseInOut(0, 1, 1, 0);            // eksp. hissi veren eğri
+    [SerializeField] private float fadeOutTime = 0.6f;
+    [SerializeField] private AnimationCurve fadeCurve = AnimationCurve.EaseInOut(0, 1, 1, 0);
 
     private Coroutine fadeRoutine;
 
@@ -28,24 +24,19 @@ public class FishSoundManager : MonoBehaviour
         audioSource.clip = fishMovementSound;
         audioSource.loop = true;
         audioSource.volume = 1f;
-
-        fishMover.OnStartMoving += PlaySwimSound;
-        fishMover.OnStopMoving  += BeginFadeOut;
     }
 
-    private void PlaySwimSound()
+    public void PlaySwimSound()
     {
-        // Fade varsa iptal et, anında tam sesle devam et
         if (fadeRoutine != null)
             StopCoroutine(fadeRoutine);
 
         audioSource.volume = 1f;
-
         if (!audioSource.isPlaying)
             audioSource.Play();
     }
 
-    private void BeginFadeOut()
+    public void BeginFadeOut()
     {
         if (audioSource.isPlaying && fadeRoutine == null)
             fadeRoutine = StartCoroutine(FadeOutCoroutine());
@@ -60,13 +51,12 @@ public class FishSoundManager : MonoBehaviour
         {
             t += Time.deltaTime;
             float normalized = t / fadeOutTime;
-            // Eğriye göre ses seviyesi
             audioSource.volume = startVol * fadeCurve.Evaluate(normalized);
             yield return null;
         }
 
         audioSource.Stop();
-        audioSource.volume = 1f;   // Sonraki çalma için sıfırla
+        audioSource.volume = 1f;
         fadeRoutine = null;
     }
 }
