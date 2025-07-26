@@ -13,11 +13,14 @@ public class FishMove : MonoBehaviour
 
     [SerializeField] private float speed = 2.5f;
     public bool isMoving => isDragging && direction != Vector2.zero;
+    private bool isTouched = false;
+    public bool IsTouched => isTouched;
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            isTouched = true;
             touchStartPosition = Input.mousePosition;
             isDragging = true;
         }

@@ -6,9 +6,24 @@ using System;
 
 public class Countdown : MonoBehaviour
 {
+    public static Countdown Instance { get; private set; }
     private int countDownTime = 3;
     [SerializeField] private TextMeshProUGUI countdownText;
     public event Action OnCountdownFinished; // << EVENT
+    public bool IsCountdownFinished { get; private set; } = false;
+
+    private void Awake()
+    {
+        // Singleton 
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     private void Start()
     {
@@ -37,6 +52,8 @@ public class Countdown : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         countdownText.gameObject.SetActive(false);
+
+        IsCountdownFinished = true;
 
         Debug.Log("Countdown finished!");
         OnCountdownFinished?.Invoke(); // << EVENT FIRING
