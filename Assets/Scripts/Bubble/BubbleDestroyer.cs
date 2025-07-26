@@ -16,6 +16,7 @@ public class BubbleDestroyer : MonoBehaviour
         if (other.CompareTag("Fish"))
         {
             bubbleController.Pop();
+            Debug.Log(gameObject.name + " popped by fish");
         }
     }
 
