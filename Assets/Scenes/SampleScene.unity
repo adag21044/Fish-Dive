@@ -119,6 +119,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &68049063
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 68049064}
+  m_Layer: 0
+  m_Name: '------Scene Setup------ '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &68049064
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68049063}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 25253.654, y: 1199.8643, z: -5.377675}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &72153966
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +263,7 @@ GameObject:
   - component: {fileID: 240848054}
   - component: {fileID: 240848053}
   m_Layer: 0
-  m_Name: Border (1)
+  m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1230,7 +1261,7 @@ GameObject:
   - component: {fileID: 1178768606}
   - component: {fileID: 1178768605}
   m_Layer: 0
-  m_Name: Border (3)
+  m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1637,7 +1668,7 @@ GameObject:
   - component: {fileID: 1507447215}
   - component: {fileID: 1507447214}
   m_Layer: 0
-  m_Name: Border (2)
+  m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1840,6 +1871,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1510395581}
   m_CullTransparentMesh: 1
+--- !u!1 &1546634579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1546634580}
+  m_Layer: 0
+  m_Name: ------Scene Setup------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1546634580
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546634579}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 25253.654, y: 1199.8643, z: -5.377675}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1797458621
 GameObject:
   m_ObjectHideFlags: 0
@@ -2365,8 +2427,7 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 72153970}
-  - {fileID: 507869439}
-  - {fileID: 2121515617}
+  - {fileID: 1047815821}
   - {fileID: 720331126}
   - {fileID: 1797458623}
   - {fileID: 932978985}
@@ -2381,9 +2442,12 @@ SceneRoots:
   - {fileID: 1141681533}
   - {fileID: 1182030387}
   - {fileID: 334678656}
+  - {fileID: 1546634580}
   - {fileID: 1273880008}
   - {fileID: 1465367146}
   - {fileID: 240848054}
   - {fileID: 1507447215}
   - {fileID: 1178768606}
-  - {fileID: 1047815821}
+  - {fileID: 507869439}
+  - {fileID: 2121515617}
+  - {fileID: 68049064}
