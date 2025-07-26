@@ -262,9 +262,9 @@ GameObject:
   m_Component:
   - component: {fileID: 240848054}
   - component: {fileID: 240848053}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Border
-  m_TagString: Untagged
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1168,9 +1168,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1178768606}
   - component: {fileID: 1178768605}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Border
-  m_TagString: Untagged
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1550,9 +1550,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1465367146}
   - component: {fileID: 1465367145}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Border
-  m_TagString: Untagged
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1628,9 +1628,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1507447215}
   - component: {fileID: 1507447214}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Border
-  m_TagString: Untagged
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1926,7 +1926,7 @@ GameObject:
   - component: {fileID: 1797458626}
   - component: {fileID: 1797458627}
   - component: {fileID: 1797458629}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fish
   m_TagString: Fish
   m_Icon: {fileID: 0}
@@ -2089,7 +2089,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

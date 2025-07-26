@@ -16,8 +16,21 @@ public class FishMove : MonoBehaviour
     private bool isTouched = false;
     public bool IsTouched => isTouched;
 
+    private Rigidbody2D rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody2D component is missing on the FishMove GameObject.");
+        }
+    }
+
     private void Update()
     {
+        // Input her zaman Update() içinde alınır
         if (Input.GetMouseButtonDown(0))
         {
             isTouched = true;
@@ -28,8 +41,6 @@ public class FishMove : MonoBehaviour
         {
             Vector2 currentPos = Input.mousePosition;
             direction = (currentPos - touchStartPosition).normalized;
-
-            MoveFish(direction);
         }
         else if (Input.GetMouseButtonUp(0))
         {
@@ -39,23 +50,39 @@ public class FishMove : MonoBehaviour
 
         if (isMoving != wasMovingLastFrame)
         {
-            if (isMoving)
-                OnStartMoving?.Invoke();
-            else
-                OnStopMoving?.Invoke();
+            if (isMoving) OnStartMoving?.Invoke();
+            else OnStopMoving?.Invoke();
 
             wasMovingLastFrame = isMoving;
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (direction != Vector2.zero)
+        {
+            MoveFish(direction);
+        }
+    }
+
     private void MoveFish(Vector2 direction)
     {
-        Vector3 moveDir = new Vector3(direction.x, direction.y, 0f);
-        transform.position += moveDir * speed * Time.deltaTime;
+        Vector2 moveDir = direction.normalized;
+        Vector2 targetPos = rb.position + moveDir * speed * Time.fixedDeltaTime; // ✅ FIXED
 
-        if (moveDir != Vector3.zero)
+        rb.MovePosition(targetPos);
+
+        if (moveDir != Vector2.zero)
         {
-            transform.up = moveDir; // Rotate the fish to face the direction of movement
+            transform.up = moveDir;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) // ✅ DOĞRU METOT BU
+    {
+        if (other.collider.CompareTag("Border"))
+        {
+            Debug.Log("Fish collided with border!");
         }
     }
 }
