@@ -4,13 +4,13 @@ public class FishSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject fish;
     [SerializeField] Transform spawnPoint;
-    [SerializeField] private SceneDrawer sceneDrawer;
+    [SerializeField] private Countdown countdown;
 
     private void Awake()
     {
-        if (sceneDrawer != null)
+        if (countdown != null)
         {
-            sceneDrawer.OnSceneDrawn += SpawnFish;
+            countdown.OnCountdownFinished += SpawnFish;
         }
     }
 
