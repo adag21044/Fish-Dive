@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class HeartDestroy : MonoBehaviour
+public class HeartDestroyer : MonoBehaviour
 {
     [SerializeField] private float shrinkDuration = 1f;
 
@@ -14,7 +14,7 @@ public class HeartDestroy : MonoBehaviour
     }
 
     [ContextMenu("Test DestroyHeart")]
-    private void DestroyHeart()
+    public void DestroyHeart()
     {
         transform.DOScale(Vector3.zero, shrinkDuration)
             .SetEase(Ease.Linear)  
