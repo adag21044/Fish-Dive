@@ -1,0 +1,28 @@
+using DG.Tweening;
+using UnityEngine;
+
+public class HeartDestroy : MonoBehaviour
+{
+    [SerializeField] private float shrinkDuration = 0.3f;
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            DestroyHeart();
+        }
+    }
+
+    [ContextMenu("Test DestroyHeart")]
+    private void DestroyHeart()
+    {
+        transform.DOScale(Vector3.zero, shrinkDuration)
+            .SetEase(Ease.InQuad) 
+            .SetUpdate(UpdateType.Normal)
+            .OnComplete(() =>
+            {
+                Destroy(gameObject);
+                Debug.Log("Heart destroyed: " + gameObject.name);
+            });
+    }
+}
