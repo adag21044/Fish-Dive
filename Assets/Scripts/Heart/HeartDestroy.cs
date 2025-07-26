@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class HeartDestroy : MonoBehaviour
 {
-    [SerializeField] private float shrinkDuration = 0.3f;
+    [SerializeField] private float shrinkDuration = 1f;
 
     private void Update()
     {
@@ -17,7 +17,7 @@ public class HeartDestroy : MonoBehaviour
     private void DestroyHeart()
     {
         transform.DOScale(Vector3.zero, shrinkDuration)
-            .SetEase(Ease.InQuad) 
+            .SetEase(Ease.Linear)  
             .SetUpdate(UpdateType.Normal)
             .OnComplete(() =>
             {

@@ -439,7 +439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f698e3a04e473143a8b68e67f010248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shrinkDuration: 5
+  shrinkDuration: 1
 --- !u!1 &240848052
 GameObject:
   m_ObjectHideFlags: 0
