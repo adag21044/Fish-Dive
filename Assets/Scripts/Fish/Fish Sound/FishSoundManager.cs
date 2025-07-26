@@ -16,7 +16,9 @@ public class FishSoundManager : MonoBehaviour
     private void Awake()
     {
         if (audioSource == null)
+        {
             audioSource = GetComponent<AudioSource>();
+        }   
     }
 
     private void Start()
@@ -29,17 +31,30 @@ public class FishSoundManager : MonoBehaviour
     public void PlaySwimSound()
     {
         if (fadeRoutine != null)
+        {
             StopCoroutine(fadeRoutine);
+            fadeRoutine = null;
+        }
+
+        if (!audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
 
         audioSource.volume = 1f;
-        if (!audioSource.isPlaying)
-            audioSource.Play();
     }
 
     public void BeginFadeOut()
     {
-        if (audioSource.isPlaying && fadeRoutine == null)
+        if (fadeRoutine != null)
+        {
+            return;
+        }
+
+        if (audioSource.isPlaying)
+        {
             fadeRoutine = StartCoroutine(FadeOutCoroutine());
+        }  
     }
 
     private IEnumerator FadeOutCoroutine()
@@ -51,7 +66,7 @@ public class FishSoundManager : MonoBehaviour
         {
             t += Time.deltaTime;
             float normalized = t / fadeOutTime;
-            audioSource.volume = startVol * fadeCurve.Evaluate(normalized);
+            audioSource.volume = Mathf.Lerp(startVol, 0f, fadeCurve.Evaluate(normalized));
             yield return null;
         }
 
