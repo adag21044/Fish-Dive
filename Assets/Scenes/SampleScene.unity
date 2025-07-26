@@ -502,6 +502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0258cb2a28a4443a41ac6ca110a2fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bubbleDestroyAnimator: {fileID: 384907513}
 --- !u!114 &384907513
 MonoBehaviour:
   m_ObjectHideFlags: 0
