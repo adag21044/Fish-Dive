@@ -4,6 +4,7 @@ public class NumberAnnouncer : MonoBehaviour
 {
     [SerializeField] private AudioClip[] numberClips; // 0 zero, 1 one, 2 two, etc.
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private MegaphoneAnimator megaphoneAnimator;
 
     // for only testing purposes
     private void Update()
@@ -17,7 +18,7 @@ public class NumberAnnouncer : MonoBehaviour
             AnnounceNumber(2);
         }
     }
-    
+
     private void AnnounceNumber(int number)
     {
         if (number < 0 || number >= numberClips.Length)
@@ -32,6 +33,19 @@ public class NumberAnnouncer : MonoBehaviour
 
         tempAudioSource.clip = clip;
         tempAudioSource.Play();
-        Destroy(tempGO, clip.length + 0.1f); // Cleanup after clip finishes
+
+        // Trigger megaphone animation
+        megaphoneAnimator.PlayMegaphoneAnimation();
+
+        // Stop megaphone after sound
+        float duration = clip.length;
+        Invoke(nameof(StopMegaphone), duration);
+
+        Destroy(tempGO, duration + 0.1f);
+    }
+    
+    private void StopMegaphone()
+    {
+        megaphoneAnimator?.StopMegaphone();
     }
 }

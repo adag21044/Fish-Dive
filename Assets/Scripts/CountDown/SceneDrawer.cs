@@ -5,12 +5,14 @@ using System;
 public class SceneDrawer : MonoBehaviour
 {
     [SerializeField] private GameObject[] sceneObjects;
+    [SerializeField] private GameObject megaphone;
     public event Action OnSceneDrawn;
 
     private void Start()
     {
         DrawScene();
         OnSceneDrawn += ShowHearts;
+        OnSceneDrawn += ShowMegaphone;
     }
 
     private void DrawScene()
@@ -44,6 +46,19 @@ public class SceneDrawer : MonoBehaviour
             {
                 Debug.LogWarning("One of the heart objects is null!");
             }
+        }
+    }
+
+    private void ShowMegaphone()
+    {
+        if (megaphone != null)
+        {
+            megaphone.SetActive(true);
+            Debug.Log("Megaphone shown!");
+        }
+        else
+        {
+            Debug.LogWarning("Megaphone object is not assigned!");
         }
     }
 }
