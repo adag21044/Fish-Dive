@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class BubbleSpawner : MonoBehaviour
 {
@@ -64,7 +65,13 @@ public class BubbleSpawner : MonoBehaviour
         int randomNumber = Random.Range(minNumber, maxNumber + 1);
 
         GameObject bubble = Instantiate(bubblePrefab, spawnPos, Quaternion.identity);
-        bubble.transform.localScale = Vector2.one * 0.5f;
+        
+        // Set the bubble's scale to zero initially
+        bubble.transform.localScale = Vector3.zero;
+
+        // Animate the bubble to its full size
+        bubble.transform.DOScale(0.5f, 0.35f)
+            .SetEase(Ease.InSine);
 
         BubbleNumberController bubbleNumberController = bubble.GetComponent<BubbleNumberController>();
         if (bubbleNumberController != null)
