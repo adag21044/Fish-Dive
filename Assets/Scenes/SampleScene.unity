@@ -1584,6 +1584,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9c77e1ca0ee3e5d4cb338170a515411f, type: 2}
   - {fileID: 11400000, guid: bca4e335613624641b62fb12d6e46783, type: 2}
   bubblePrefab: {fileID: 4345593180693406638, guid: 21a4dc1f32cbba54183891ad2445eb54, type: 3}
+  minNumber: 1
+  maxNumber: 10
 --- !u!4 &1410457351
 Transform:
   m_ObjectHideFlags: 0
@@ -2784,6 +2786,10 @@ PrefabInstance:
     - target: {fileID: 4345593180693406638, guid: 21a4dc1f32cbba54183891ad2445eb54, type: 3}
       propertyPath: m_Name
       value: Baloon
+      objectReference: {fileID: 0}
+    - target: {fileID: 4345593180693406638, guid: 21a4dc1f32cbba54183891ad2445eb54, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
