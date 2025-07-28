@@ -28,6 +28,11 @@ public class BubbleSpawner : MonoBehaviour
 
         // Instantiate bubble prefab
         GameObject bubble = Instantiate(bubblePrefab, transform.position, Quaternion.identity);
+
+        // Set scale to 0.5 on all axes
+        bubble.transform.localScale = Vector3.one * 0.5f;
+
+        // Set the sprite of the bubble
         SpriteRenderer renderer = bubble.GetComponent<SpriteRenderer>();
 
         if (renderer != null)
