@@ -4,6 +4,7 @@ public class BubbleDestroyer : MonoBehaviour
 {
     private BubbleController bubbleController;
     [SerializeField] private BubbleDestroyAnimator bubbleDestroyAnimator;
+    [SerializeField] private BubbleNumberController bubbleNumberController;
     
     private void Start()
     {
@@ -15,6 +16,7 @@ public class BubbleDestroyer : MonoBehaviour
     {
         if (other.CompareTag("Fish"))
         {
+            bubbleNumberController.DeactiveNumber();
             bubbleController.Pop();
             Debug.Log(gameObject.name + " popped by fish");
         }

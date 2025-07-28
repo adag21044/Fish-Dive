@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bubbleDestroyAnimator: {fileID: 795328689489646607}
+  bubbleNumberController: {fileID: 2793849946525285125}
 --- !u!114 &795328689489646607
 MonoBehaviour:
   m_ObjectHideFlags: 0
