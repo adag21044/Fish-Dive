@@ -10,12 +10,12 @@ public class BubbleSpawner : MonoBehaviour
     [SerializeField] private int maxNumber = 10;
 
     [Header("Spawn Area")]
-    [SerializeField] private float xMin = -2.3f;
-    [SerializeField] private float xMax = 2.3f;
-    [SerializeField] private float yMin = -3.3f;
-    [SerializeField] private float yMax = 4.0f;
+    [SerializeField] private float xMin = -1.72f;
+    [SerializeField] private float xMax = 1.72f;
+    [SerializeField] private float yMin = -2.75f;
+    [SerializeField] private float yMax = 3.9f;
     [SerializeField] private float minDistanceBetweenBubbles = 1.0f;
-    private List<Vector3> existingBubblePositions = new List<Vector3>();
+    private List<Vector2> existingBubblePositions = new List<Vector2>();
 
     // Only for testing purposes
     private void Update()
@@ -35,15 +35,16 @@ public class BubbleSpawner : MonoBehaviour
             return;
         }
 
+        float bubbleRadius = 1.1f;
         int maxAttempts = 20;
-        Vector3 spawnPos = Vector3.zero;
+        Vector2 spawnPos = Vector2.zero;
         bool positionFound = false;
 
         for (int attempt = 0; attempt < maxAttempts; attempt++)
         {
-            float x = Random.Range(xMin, xMax);
-            float y = Random.Range(yMin, yMax);
-            spawnPos = new Vector3(x, y, 0f);
+            float x = Random.Range(xMin + bubbleRadius, xMax - bubbleRadius);
+            float y = Random.Range(yMin + bubbleRadius, yMax) - bubbleRadius;
+            spawnPos = new Vector2(x, y);
 
             if (IsPositionSafe(spawnPos))
             {
@@ -63,25 +64,46 @@ public class BubbleSpawner : MonoBehaviour
         int randomNumber = Random.Range(minNumber, maxNumber + 1);
 
         GameObject bubble = Instantiate(bubblePrefab, spawnPos, Quaternion.identity);
-        bubble.transform.localScale = Vector3.one * 0.5f;
+        bubble.transform.localScale = Vector2.one * 0.5f;
 
         BubbleNumberController bubbleNumberController = bubble.GetComponent<BubbleNumberController>();
         if (bubbleNumberController != null)
         {
             bubbleNumberController.Setup(selectedBubble.bubbleSprite, randomNumber);
         }
+        BubbleController bubbleController = bubble.GetComponent<BubbleController>();
+        if (bubbleController != null)
+        {
+            bubbleController.Initialize(spawnPos, this);
+        }
 
         existingBubblePositions.Add(spawnPos);
     }
 
-    private bool IsPositionSafe(Vector3 newPos)
+    private bool IsPositionSafe(Vector2 newPos)
     {
         foreach (var pos in existingBubblePositions)
         {
-            if (Vector3.Distance(pos, newPos) < minDistanceBetweenBubbles)
+            if (Vector2.Distance(pos, newPos) < minDistanceBetweenBubbles)
                 return false;
         }
         return true;
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(
+            new Vector3((xMin + xMax) / 2f, (yMin + yMax) / 2f, 0f),
+            new Vector3(xMax - xMin, yMax - yMin, 0.1f)
+        );
+    }
+
+    public void FreePosition(Vector2 position)
+    {
+        existingBubblePositions.Remove(position);
+    }
+
+
     
 }
