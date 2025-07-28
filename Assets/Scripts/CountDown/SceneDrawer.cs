@@ -10,6 +10,7 @@ public class SceneDrawer : MonoBehaviour
     private void Start()
     {
         DrawScene();
+        OnSceneDrawn += ShowHearts;
     }
 
     private void DrawScene()
@@ -29,5 +30,20 @@ public class SceneDrawer : MonoBehaviour
 
                 OnSceneDrawn?.Invoke();
             });
+    }
+
+    private void ShowHearts()
+    {
+        foreach (var obj in sceneObjects)
+        {
+            if (obj != null)
+            {
+                obj.SetActive(true);
+            }
+            else
+            {
+                Debug.LogWarning("One of the heart objects is null!");
+            }
+        }
     }
 }

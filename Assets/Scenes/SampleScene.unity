@@ -268,7 +268,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &95813177
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -356,7 +356,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &131082868
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1789,6 +1789,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneObjects:
   - {fileID: 2121515615}
+  - {fileID: 131082867}
+  - {fileID: 1818616831}
+  - {fileID: 95813176}
 --- !u!4 &1273880008
 Transform:
   m_ObjectHideFlags: 0
@@ -2818,7 +2821,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1818616832
 SpriteRenderer:
   m_ObjectHideFlags: 0
