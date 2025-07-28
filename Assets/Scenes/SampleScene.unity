@@ -2116,6 +2116,7 @@ GameObject:
   - component: {fileID: 1797458626}
   - component: {fileID: 1797458627}
   - component: {fileID: 1797458629}
+  - component: {fileID: 1797458631}
   m_Layer: 6
   m_Name: Fish
   m_TagString: Fish
@@ -2437,6 +2438,19 @@ MonoBehaviour:
   fishMove: {fileID: 1797458624}
   fishAnimator: {fileID: 1797458625}
   fishSoundManager: {fileID: 1797458628}
+--- !u!114 &1797458631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797458621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20c98fa888cccfe48b56d2184e5fc749, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishCollider: {fileID: 1797458627}
 --- !u!1 &1799830906
 GameObject:
   m_ObjectHideFlags: 0
