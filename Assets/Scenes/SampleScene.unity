@@ -262,6 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 95813178}
   - component: {fileID: 95813177}
+  - component: {fileID: 95813179}
   m_Layer: 0
   m_Name: heart
   m_TagString: Untagged
@@ -339,6 +340,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &95813179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95813176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f698e3a04e473143a8b68e67f010248, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shrinkDuration: 1
 --- !u!1 &131082867
 GameObject:
   m_ObjectHideFlags: 0
@@ -2224,6 +2238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bubbleNumberSelector: {fileID: 1797458631}
+  heartController: {fileID: 1797458632}
 --- !u!4 &1396434050
 Transform:
   m_ObjectHideFlags: 0
@@ -2956,6 +2971,7 @@ GameObject:
   - component: {fileID: 1797458626}
   - component: {fileID: 1797458627}
   - component: {fileID: 1797458629}
+  - component: {fileID: 1797458632}
   m_Layer: 6
   m_Name: Fish
   m_TagString: Fish
@@ -3290,6 +3306,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fishCollider: {fileID: 1797458627}
+--- !u!114 &1797458632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797458621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e23aaeb157e7ba34f8d5ffe48556a51a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heartDestroyers:
+  - {fileID: 131082870}
+  - {fileID: 1818616834}
+  - {fileID: 95813179}
 --- !u!1 &1799830906
 GameObject:
   m_ObjectHideFlags: 0
@@ -3331,6 +3363,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1818616833}
   - component: {fileID: 1818616832}
+  - component: {fileID: 1818616834}
   m_Layer: 0
   m_Name: heart
   m_TagString: Untagged
@@ -3408,6 +3441,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1818616834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818616831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f698e3a04e473143a8b68e67f010248, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shrinkDuration: 1
 --- !u!1 &1867678848
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using UnityEngine;
 public class AnswerObserver : MonoBehaviour
 {
     [SerializeField] private BubbleNumberSelector bubbleNumberSelector;
+    [SerializeField] private HeartController heartController;
 
     private void OnEnable()
     {
@@ -28,7 +29,10 @@ public class AnswerObserver : MonoBehaviour
         else
         {
             Debug.Log("Incorrect number selected: " + bubbleNumberSelector.SelectedBubbleNumber);
+
             // Handle incorrect selection logic here
+            heartController.DestroyNextHeart();
+
         }
     }
 }

@@ -2,17 +2,45 @@ using UnityEngine;
 
 public class HeartController : MonoBehaviour
 {
-    HeartDestroyer[] heartDestroyers;
+    [SerializeField] private HeartDestroyer[] heartDestroyers;
+    private int nextIndex = 0;
 
-    private void DestroyHeart(HeartDestroyer[] heartDestroyers, int index)
+    // Destroy by explicit index (kept as is)
+    public void DestroyHeart(int index)
     {
         if (index < 0 || index >= heartDestroyers.Length)
         {
-            Debug.LogError("Index out of bounds for heartDestroyers array.");
+            Debug.LogWarning("Invalid heart index: " + index);
+            return;
+        }
+
+        if (heartDestroyers[index] == null)
+        {
+            Debug.LogWarning("Heart at index is null.");
             return;
         }
 
         heartDestroyers[index].DestroyHeart();
     }
 
+    // Destroy next available heart
+    public void DestroyNextHeart()
+    {
+        // Find next non-null, active heart
+        while (nextIndex < heartDestroyers.Length &&
+               (heartDestroyers[nextIndex] == null ||
+                !heartDestroyers[nextIndex].gameObject.activeInHierarchy))
+        {
+            nextIndex++;
+        }
+
+        if (nextIndex >= heartDestroyers.Length)
+        {
+            Debug.LogWarning("No hearts left to destroy.");
+            return;
+        }
+
+        heartDestroyers[nextIndex].DestroyHeart();
+        nextIndex++;
+    }
 }
