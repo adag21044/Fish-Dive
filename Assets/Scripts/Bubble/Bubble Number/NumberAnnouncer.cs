@@ -12,11 +12,7 @@ public class NumberAnnouncer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            AnnounceNumber(announcedNumber);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            AnnounceNumber(2);
+            AnnounceNumber(GenerateRandomNumber());
         }
     }
 
@@ -45,9 +41,16 @@ public class NumberAnnouncer : MonoBehaviour
         Destroy(tempGO, duration + 0.1f);
         return number;
     }
-    
+
     private void StopMegaphone()
     {
         megaphoneAnimator?.StopMegaphone();
+    }
+    
+    private int GenerateRandomNumber()
+    {
+        int randomNumber = Random.Range(0, numberClips.Length);
+        announcedNumber = randomNumber;
+        return randomNumber;
     }
 }
