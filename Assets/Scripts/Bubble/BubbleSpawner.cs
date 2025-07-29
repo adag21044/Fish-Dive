@@ -4,8 +4,10 @@ using DG.Tweening;
 
 public class BubbleSpawner : MonoBehaviour
 {
-    [SerializeField] private BubbleSO[] bubbleData; // Reference to the BubbleSO scriptable object
-    [SerializeField] private GameObject bubblePrefab; // Prefab for the bubble
+    [SerializeField] public BubbleSO[] bubbleData; // Reference to the BubbleSO scriptable object
+    [SerializeField] private GameObject bubblePrefab;
+    public GameObject BubblePrefab => bubblePrefab; // sadece getter
+
 
     [SerializeField] private int minNumber = 1;
     [SerializeField] private int maxNumber = 10;
@@ -17,6 +19,7 @@ public class BubbleSpawner : MonoBehaviour
     [SerializeField] private float yMax = 3.9f;
     [SerializeField] private float minDistanceBetweenBubbles = 1.0f;
     private List<Vector2> existingBubblePositions = new List<Vector2>();
+    public List<GameObject> spawnedBubbles = new List<GameObject>();
 
     // Only for testing purposes
     private void Update()
@@ -85,11 +88,13 @@ public class BubbleSpawner : MonoBehaviour
         }
 
         existingBubblePositions.Add(spawnPos);
-        
+
         DOVirtual.DelayedCall(3f, () =>
         {
             FreePosition(spawnPos);
         });
+        spawnedBubbles.Add(bubble);
+        FindObjectOfType<DelayedCorrectBubbleSpawner>()?.NotifyBubbleSpawned();
     }
 
     private bool IsPositionSafe(Vector2 newPos)

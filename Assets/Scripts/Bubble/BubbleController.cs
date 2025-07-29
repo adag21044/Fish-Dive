@@ -71,7 +71,7 @@ public class BubbleController : MonoBehaviour
                 bubbleSpawner.FreePosition(spawnPosition);
             }
 
-            Destroy(gameObject); // veya gameObject.SetActive(false);
+            Destroy(gameObject);
         });
     }
 

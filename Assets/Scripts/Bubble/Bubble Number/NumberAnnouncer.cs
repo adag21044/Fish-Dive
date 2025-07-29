@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;
+
 
 public class NumberAnnouncer : MonoBehaviour
 {
@@ -6,6 +8,7 @@ public class NumberAnnouncer : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private MegaphoneAnimator megaphoneAnimator;
     [SerializeField] public static int announcedNumber = 1;
+    public static event Action OnNumberAnnounced;
 
     // for only testing purposes
     private void Update()
@@ -39,6 +42,7 @@ public class NumberAnnouncer : MonoBehaviour
         Invoke(nameof(StopMegaphone), duration);
 
         Destroy(tempGO, duration + 0.1f);
+        OnNumberAnnounced?.Invoke();
         return number;
     }
 
@@ -49,7 +53,7 @@ public class NumberAnnouncer : MonoBehaviour
     
     private int GenerateRandomNumber()
     {
-        int randomNumber = Random.Range(0, numberClips.Length);
+        int randomNumber = UnityEngine.Random.Range(0, numberClips.Length);
         announcedNumber = randomNumber;
         return randomNumber;
     }
