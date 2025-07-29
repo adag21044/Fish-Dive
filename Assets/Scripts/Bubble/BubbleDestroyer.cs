@@ -20,6 +20,12 @@ public class BubbleDestroyer : MonoBehaviour
             bubbleController.Pop();
             Debug.Log(gameObject.name + " popped by fish");
         }
+        else if (other.CompareTag("Destroyer"))
+        {
+            bubbleNumberController.DeactiveNumber();
+            bubbleController.Pop();
+            Debug.Log(gameObject.name + " popped by destroyer");
+        }
     }
 
 }

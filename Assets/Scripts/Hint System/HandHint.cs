@@ -6,13 +6,18 @@ public class HandHint : MonoBehaviour
     [SerializeField] private GameObject handObject; // Reference to the hand object
     [SerializeField] private FishMove fishMove; // Reference to the FishMove script
     private Tween handTween;
+    [SerializeField] private LevelDataLoader levelDataLoader; // Reference to the LevelDataLoader script
 
     private void Update()
     {
-        if (!fishMove.IsTouched )
+        if (!fishMove.IsTouched)
         {
             Debug.Log("Showing hand hint");
-            ShowHandHint();
+
+            if (levelDataLoader)
+            {
+                ShowHandHint();
+            }
         }
         else
         {
