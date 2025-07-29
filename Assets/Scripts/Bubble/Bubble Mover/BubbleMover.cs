@@ -2,8 +2,15 @@ using UnityEngine;
 
 public class BubbleMover : MonoBehaviour
 {
+    [SerializeField] private LevelDatabase levelData;
+    [SerializeField] private float speed;
 
-    [SerializeField] private float speed = 2.5f;
+    private void Awake()
+    {
+        speed = levelData.levels[0].speed;
+        Debug.Log($"Bubble speed set to: {speed}");
+    }
+
     private void Update()
     {
         MoveBubble(Vector3.up, speed);
