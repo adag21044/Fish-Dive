@@ -72,7 +72,7 @@ public class FishMove : MonoBehaviour
 
         rb.MovePosition(targetPos);
 
-        if (moveDir != Vector2.zero)
+        if (moveDir != Vector2.zero || !GetComponent<FishAnimator>().isShaking)
         {
             transform.up = moveDir;
         }

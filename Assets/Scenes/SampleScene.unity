@@ -2239,6 +2239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bubbleNumberSelector: {fileID: 1797458631}
   heartController: {fileID: 1797458632}
+  fishController: {fileID: 1797458630}
 --- !u!4 &1396434050
 Transform:
   m_ObjectHideFlags: 0
@@ -3078,6 +3079,8 @@ MonoBehaviour:
   sprite1: {fileID: -855298285791758126, guid: a1a204c89da59c64898479705821d5da, type: 3}
   sprite2: {fileID: 6937817954938267909, guid: b8162efafb064a248b74de1ea7acd98c, type: 3}
   switchInterval: 0.3
+  shakeDuration: 0.2
+  shakeStrength: 0.1
 --- !u!50 &1797458626
 Rigidbody2D:
   serializedVersion: 5

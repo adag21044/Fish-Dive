@@ -3,7 +3,7 @@ using UnityEngine;
 public class FishController : MonoBehaviour
 {
     [SerializeField] private FishMove fishMove;
-    [SerializeField] private FishAnimator fishAnimator;
+    [SerializeField] public FishAnimator fishAnimator;
     [SerializeField] private FishSoundManager fishSoundManager;
 
     private void Awake()

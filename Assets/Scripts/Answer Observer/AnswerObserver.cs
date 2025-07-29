@@ -4,6 +4,7 @@ public class AnswerObserver : MonoBehaviour
 {
     [SerializeField] private BubbleNumberSelector bubbleNumberSelector;
     [SerializeField] private HeartController heartController;
+    [SerializeField] private FishController fishController;
 
     private void OnEnable()
     {
@@ -32,7 +33,14 @@ public class AnswerObserver : MonoBehaviour
 
             // Handle incorrect selection logic here
             heartController.DestroyNextHeart();
-
+            if (fishController?.fishAnimator != null)
+            {
+                fishController.fishAnimator.PlayShake();
+            }
+            else
+            {
+                Debug.LogWarning("FishAnimator is null! Check assignments in Inspector.");
+            }
         }
     }
 }
