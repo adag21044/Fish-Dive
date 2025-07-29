@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class BubbleController : MonoBehaviour
 {
@@ -33,15 +34,45 @@ public class BubbleController : MonoBehaviour
             destroyAnimator.StartDestroyAnimation();
         }
 
-        if(bubbleSpawner != null)
+        if (bubbleSpawner != null)
         {
             bubbleSpawner.FreePosition(spawnPosition);
         }
     }
-    
+
     public void Initialize(Vector2 position, BubbleSpawner spawner)
     {
         spawnPosition = position;
         bubbleSpawner = spawner;
     }
+    
+    public void DisappearAtTop(float fadeDuration = 0.4f)
+    {
+        if (isPopped) return; // Zaten patladıysa animasyon oynama
+
+        isPopped = true;
+        bubbleCollider.enabled = false;
+
+        // Ölçek küçülerek ve şeffaflaşarak yok olma
+        Sequence seq = DOTween.Sequence();
+
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            seq.Join(sr.DOFade(0f, fadeDuration));
+        }
+
+        seq.Join(transform.DOScale(Vector3.zero, fadeDuration).SetEase(Ease.OutSine));
+
+        seq.OnComplete(() =>
+        {
+            if (bubbleSpawner != null)
+            {
+                bubbleSpawner.FreePosition(spawnPosition);
+            }
+
+            Destroy(gameObject); // veya gameObject.SetActive(false);
+        });
+    }
+
 }

@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 2793849946525285125}
   - component: {fileID: 7762739088881911597}
   - component: {fileID: 3367812587139880181}
+  - component: {fileID: 2887745601413526286}
   m_Layer: 0
   m_Name: Baloon
   m_TagString: Bubble
@@ -333,6 +334,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelData: {fileID: 11400000, guid: bc1c2d8aca32c3c47af538e8088a4802, type: 2}
   speed: 2.5
+--- !u!114 &2887745601413526286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4345593180693406638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 311bd1014a74da94f84a47e47c828505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  topYLimit: 5.2
+  bubbleController: {fileID: 4808815536292443768}
 --- !u!1 &7259994380169853582
 GameObject:
   m_ObjectHideFlags: 0
