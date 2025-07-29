@@ -65,7 +65,7 @@ public class BubbleSpawner : MonoBehaviour
         int randomNumber = Random.Range(minNumber, maxNumber + 1);
 
         GameObject bubble = Instantiate(bubblePrefab, spawnPos, Quaternion.identity);
-        
+
         // Set the bubble's scale to zero initially
         bubble.transform.localScale = Vector3.zero;
 
@@ -85,6 +85,11 @@ public class BubbleSpawner : MonoBehaviour
         }
 
         existingBubblePositions.Add(spawnPos);
+        
+        DOVirtual.DelayedCall(3f, () =>
+        {
+            FreePosition(spawnPos);
+        });
     }
 
     private bool IsPositionSafe(Vector2 newPos)
