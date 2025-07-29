@@ -78,7 +78,7 @@ public class FishMove : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other) // ✅ DOĞRU METOT BU
+    private void OnCollisionEnter2D(Collision2D other) 
     {
         if (other.collider.CompareTag("Border"))
         {
