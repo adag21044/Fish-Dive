@@ -3,7 +3,7 @@ using UnityEngine;
 public class LevelDataLoader : MonoBehaviour
 {
     private LevelDataSO levelData;
-    private static bool isLevelOne = false;
+    public static bool isLevelOne = false;
 
     private void Update()
     {

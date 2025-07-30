@@ -3,25 +3,32 @@ using DG.Tweening;
 
 public class HandHider : MonoBehaviour
 {
-    [SerializeField] private GameObject handObject; // Reference to the hand object
-    [SerializeField] private FishMove fishMove; // Reference to the FishMove script
+    [SerializeField] private GameObject handObject;
+    [SerializeField] private FishMove fishMove;
 
     private Tween hintTween;
     private bool isCountDownFinished = false;
+    private bool hasShown = false;
 
     private void Awake()
     {
-        handObject.SetActive(false); // Ensure the hand object is initially hidden
+        handObject.SetActive(false);
 
+        // Geri sayım bittiğinde işaretleme
         Countdown.Instance.OnCountdownFinished += HandleCountdownFinished;
     }
 
     private void Update()
     {
-        if (!isCountDownFinished)
+        // ✅ Sadece 1. seviyede çalışmalı
+        if (LevelManager.Instance.CurrentLevelData.level != 1)
         {
+            HideHandHint();
             return;
         }
+
+        if (!isCountDownFinished || hasShown)
+            return;
 
         if (!fishMove.IsTouched)
         {
@@ -30,28 +37,13 @@ public class HandHider : MonoBehaviour
         else
         {
             HideHandHint();
+            hasShown = true; // tekrar gösterilmesin
         }
-
     }
 
     private void HandleCountdownFinished()
     {
         isCountDownFinished = true;
-        ShowHandHint();
-    }
-
-    private void HideHandHint()
-    {
-        if (handObject == null)
-        {
-            return;
-        }
-
-        if (handObject.activeSelf)
-        {
-            handObject.SetActive(false);
-            Debug.Log("Hand hint hidden.");
-        }
     }
 
     private void ShowHandHint()
@@ -60,16 +52,29 @@ public class HandHider : MonoBehaviour
 
         handObject.SetActive(true);
         StartHintAnimation();
+        Debug.Log("Hint shown.");
     }
-    
+
+    private void HideHandHint()
+    {
+        if (!handObject.activeSelf) return;
+
+        handObject.SetActive(false);
+
+        if (hintTween != null && hintTween.IsActive())
+        {
+            hintTween.Kill();
+        }
+
+        Debug.Log("Hint hidden.");
+    }
+
     private void StartHintAnimation()
     {
         Transform t = handObject.transform;
 
-        // Eski tween'i temizle
         hintTween?.Kill();
 
-        // 0°  ↔  30° X-rotasyon
         hintTween = t.DORotate(new Vector3(30f, 0f, 0f), 0.6f, RotateMode.Fast)
                      .SetEase(Ease.InOutSine)
                      .SetLoops(-1, LoopType.Yoyo);

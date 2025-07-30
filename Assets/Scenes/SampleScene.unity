@@ -1691,7 +1691,6 @@ GameObject:
   m_Component:
   - component: {fileID: 975387816}
   - component: {fileID: 975387815}
-  - component: {fileID: 975387817}
   m_Layer: 0
   m_Name: hand_0
   m_TagString: Untagged
@@ -1769,21 +1768,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &975387817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 975387814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4008cdd8507b78344b762b9d1a331619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handObject: {fileID: 975387814}
-  fishMove: {fileID: 1797458624}
-  levelDataLoader: {fileID: 0}
 --- !u!1 &1003644190
 GameObject:
   m_ObjectHideFlags: 0
@@ -2281,7 +2265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77418f703eb0a7b4f9bd9c895c1ae9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: 2
+  levelToLoad: 1
 --- !u!4 &1257170854
 Transform:
   m_ObjectHideFlags: 0

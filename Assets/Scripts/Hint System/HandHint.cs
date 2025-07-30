@@ -6,65 +6,56 @@ public class HandHint : MonoBehaviour
     [SerializeField] private GameObject handObject; // Reference to the hand object
     [SerializeField] private FishMove fishMove; // Reference to the FishMove script
     private Tween handTween;
-    [SerializeField] private LevelDataLoader levelDataLoader; // Reference to the LevelDataLoader script
+    private bool hasHandShown = false;
+
 
     private void Update()
     {
-        if (!fishMove.IsTouched)
-        {
-            Debug.Log("Showing hand hint");
-
-            if (levelDataLoader)
-            {
-                ShowHandHint();
-            }
-        }
-        else
+        if (LevelManager.Instance.CurrentLevelData.level != 1)
         {
             HideHandHint();
+            return;
+        }
+        if (fishMove.IsTouched && !hasHandShown)
+        {
+            ShowHandHint();
+        }
+        else
+        if (fishMove.IsTouched)
+        {
+            HideHandHint();
+        }
+        else if (!fishMove.IsTouched && !hasHandShown)
+        {
+            ShowHandHint();
+            hasHandShown = true;
         }
     }
 
     private void ShowHandHint()
     {
-        if (handObject == null)
+        if (handObject == null || handObject.activeSelf)
         {
             return;
         }
 
-        if (!handObject.activeSelf)
-        {
-            handObject.SetActive(true);
-            HandHintAnimation();
-            Debug.Log("Hand hint shown.");
-        }
-        else
-        {
-            // Restart the animation if it's already active
-            if (handTween == null || !handTween.IsActive())
-            {
-                HandHintAnimation();
-            }
-        }
+        handObject.SetActive(true);
+        HandHintAnimation();
+        Debug.Log("Hand hint shown.");
     }
 
     private void HideHandHint()
     {
-        if (handObject == null)
-        {
+        if (handObject == null || !handObject.activeSelf)
             return;
-        }
-        
-        if (handObject.activeSelf)
-        {
-            handObject.SetActive(false);
 
-            if (handTween != null && handTween.IsActive())
-            {
-                handTween.Kill(true);
-            }
-            Debug.Log("Hand hint hidden.");
+        handObject.SetActive(false);
+
+        if (handTween != null && handTween.IsActive())
+        {
+            handTween.Kill(true);
         }
+        Debug.Log("Hand hint hidden.");
     }
 
     private void HandHintAnimation()
