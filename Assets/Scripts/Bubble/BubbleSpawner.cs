@@ -18,8 +18,18 @@ public class BubbleSpawner : MonoBehaviour
     [SerializeField] private float yMin = -2.75f;
     [SerializeField] private float yMax = 3.9f;
     [SerializeField] private float minDistanceBetweenBubbles = 1.0f;
+    [SerializeField] private float spawnRate = 1.0f; // Spawn interval in seconds
     private List<Vector2> existingBubblePositions = new List<Vector2>();
     public List<GameObject> spawnedBubbles = new List<GameObject>();
+
+    private void Start()
+    {
+        var data = LevelManager.Instance.CurrentLevelData;
+        minNumber = data.minnumber;
+        maxNumber = data.maxnumber;
+        spawnRate = data.spawninterval;
+
+    }
 
     // Only for testing purposes
     private void Update()

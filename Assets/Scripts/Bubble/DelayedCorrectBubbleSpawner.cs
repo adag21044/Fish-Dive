@@ -12,6 +12,13 @@ public class DelayedCorrectBubbleSpawner : MonoBehaviour
     private int delayCounter = 0;
     private bool correctBubbleSpawned = false;
 
+    private void Start()
+    {
+        var data = LevelManager.Instance.CurrentLevelData;
+        delayCount = UnityEngine.Random.Range(data.mindelaycount, data.maxdelaycount + 1);
+    }
+
+
     private void OnEnable()
     {
         NumberAnnouncer.OnNumberAnnounced += ResetLogic;

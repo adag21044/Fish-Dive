@@ -53,7 +53,8 @@ public class NumberAnnouncer : MonoBehaviour
     
     private int GenerateRandomNumber()
     {
-        int randomNumber = UnityEngine.Random.Range(0, numberClips.Length);
+        var data = LevelManager.Instance.CurrentLevelData;
+        int randomNumber = UnityEngine.Random.Range(data.minnumber, data.maxnumber + 1);
         announcedNumber = randomNumber;
         return randomNumber;
     }
