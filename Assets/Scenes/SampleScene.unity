@@ -2392,6 +2392,7 @@ MonoBehaviour:
   - {fileID: 1818616831}
   - {fileID: 95813176}
   megaphone: {fileID: 1500141168}
+  timer: {fileID: 444929119}
 --- !u!4 &1273880008
 Transform:
   m_ObjectHideFlags: 0

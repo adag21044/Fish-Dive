@@ -5,7 +5,7 @@ public class LevelDataLoader : MonoBehaviour
     public LevelDatabase levelDataBase;
     private LevelDataSO currentLevelData;
     public static bool isLevelOne = false;
-    
+
 
     private void Update()
     {
@@ -59,9 +59,9 @@ public class LevelDataLoader : MonoBehaviour
     public void LoadLevelData(int levelIndex)
     {
         // Dizi 0’dan başladığı için -1
-        if (levelIndex-1 >= 0 && levelIndex-1 < levelDataBase.levels.Length)
+        if (levelIndex - 1 >= 0 && levelIndex - 1 < levelDataBase.levels.Length)
         {
-            currentLevelData = levelDataBase.levels[levelIndex-1];
+            currentLevelData = levelDataBase.levels[levelIndex - 1];
             Debug.Log($"Loaded Level {currentLevelData.level}, Opt Q: {currentLevelData.optimumquestioncount}");
         }
         else
@@ -71,6 +71,7 @@ public class LevelDataLoader : MonoBehaviour
     }
 
     public LevelDataSO GetCurrentLevelData() => currentLevelData;
-    
+
     public int GetLevelIndex() => currentLevelData != null ? currentLevelData.level : 0;
+    public int GetGameDuration => currentLevelData != null ? (int)currentLevelData.gameDuration : 0;
 }

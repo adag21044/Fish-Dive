@@ -7,12 +7,14 @@ public class SceneDrawer : MonoBehaviour
     [SerializeField] private GameObject[] sceneObjects;
     [SerializeField] private GameObject megaphone;
     public event Action OnSceneDrawn;
+    [SerializeField] private Timer timer;
 
     private void Start()
     {
         DrawScene();
         OnSceneDrawn += ShowHearts;
         OnSceneDrawn += ShowMegaphone;
+        OnSceneDrawn += timer.StartTimer; 
     }
 
     private void DrawScene()

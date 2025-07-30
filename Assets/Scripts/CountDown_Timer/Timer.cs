@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    private int seconds;
+    private float seconds;
+    [SerializeField] private LevelDataLoader levelDataLoader;
 
-    private void Start()
+    public void StartTimer()
     {
-        seconds = 10;
+        seconds = levelDataLoader.GetCurrentLevelData().gameDuration;
         InvokeRepeating(nameof(UpdateTimer), 1f, 1f);
     }
 
