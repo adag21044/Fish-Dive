@@ -19,6 +19,8 @@ MonoBehaviour:
   mindelaycount: 2
   maxdelaycount: 5
   spawncount: 2
-  spawninterval: 1.5
+  spawninterval: 4
   speed: 3.5
   combospeedratio: 1.2
+  gameDuration: 90
+  bubblecount: 6

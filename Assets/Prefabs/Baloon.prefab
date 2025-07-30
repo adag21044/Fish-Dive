@@ -312,6 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 8322238747003080606}
   text: {fileID: 205584611633997817}
+  bubbleNumber: 0
 --- !u!222 &7762739088881911597
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -334,6 +335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelData: {fileID: 11400000, guid: bc1c2d8aca32c3c47af538e8088a4802, type: 2}
   speed: 2.5
+  levelDataLoader: {fileID: 0}
 --- !u!114 &2887745601413526286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,6 +361,7 @@ GameObject:
   - component: {fileID: 1336408345145812779}
   - component: {fileID: 6739881912505371850}
   - component: {fileID: 205584611633997817}
+  - component: {fileID: 2915752680945397076}
   m_Layer: 0
   m_Name: BubbleText
   m_TagString: Untagged
@@ -524,3 +527,15 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 6739881912505371850}
   m_maskType: 0
+--- !u!210 &2915752680945397076
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7259994380169853582}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
+  m_SortAtRoot: 0

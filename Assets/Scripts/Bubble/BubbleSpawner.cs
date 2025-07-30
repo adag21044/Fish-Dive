@@ -29,6 +29,9 @@ public class BubbleSpawner : MonoBehaviour
         maxNumber = data.maxnumber;
         spawnRate = data.spawninterval;
 
+        SpawnInitialBubbles(data.bubblecount);
+
+        StartSpawnLoop(data.spawncount);
     }
 
     // Only for testing purposes
@@ -38,6 +41,51 @@ public class BubbleSpawner : MonoBehaviour
         {
             SpawnBubble();
         }
+    }
+
+    private void SpawnInitialBubbles(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            SpawnBubble();
+        }
+    }
+
+    private Tween spawnLoopTween;
+
+    private void StartSpawnLoop(int spawnCount)
+    {
+        spawnLoopTween = DOVirtual.DelayedCall(spawnRate, () =>
+        {
+            SpawnBubblesSequentially(spawnCount);
+
+            // spawnRate dolunca tekrar tetikle
+            StartSpawnLoop(spawnCount);
+
+        }, false);
+    }
+
+    private void SpawnBubblesSequentially(int count)
+    {
+        float delayBetweenEach = 0.4f; // balık boyu kadar zaman
+
+        for (int i = 0; i < count; i++)
+        {
+            float delay = i * delayBetweenEach;
+
+            DOVirtual.DelayedCall(delay, () =>
+            {
+                SpawnBubble();
+            });
+        }
+    }
+
+
+
+    private void OnDestroy()
+    {
+        if (spawnLoopTween != null && spawnLoopTween.IsActive())
+            spawnLoopTween.Kill();
     }
 
 
