@@ -4,10 +4,21 @@ public class BubbleMover : MonoBehaviour
 {
     [SerializeField] private LevelDatabase levelData;
     [SerializeField] private float speed;
+    [SerializeField] private LevelDataLoader levelDataLoader;
 
     private void Awake()
     {
-        speed = levelData.levels[0].speed;
+        if (levelDataLoader == null)
+        levelDataLoader = FindFirstObjectByType<LevelDataLoader>();
+
+        if (levelDataLoader == null)
+        {
+            Debug.LogError("LevelDataLoader bulunamadı!");
+            return;
+        }
+
+        speed = levelData.levels[levelDataLoader.GetLevelIndex()].speed;
+        Debug.Log($"Loaded level data for level {levelDataLoader.GetLevelIndex()} with speed: {speed}");
         Debug.Log($"Bubble speed set to: {speed}");
     }
 

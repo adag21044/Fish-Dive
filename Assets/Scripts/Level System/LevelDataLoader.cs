@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class LevelDataLoader : MonoBehaviour
 {
-    private LevelDataSO levelData;
+    public LevelDatabase levelDataBase;
+    private LevelDataSO currentLevelData;
     public static bool isLevelOne = false;
+    
 
     private void Update()
     {
@@ -54,16 +56,21 @@ public class LevelDataLoader : MonoBehaviour
         }
     }
 
-    private void LoadLevelData(int i)
+    public void LoadLevelData(int levelIndex)
     {
-        levelData = Resources.Load<LevelDataSO>("Level"+i);
-        if (levelData != null)
+        // Dizi 0’dan başladığı için -1
+        if (levelIndex-1 >= 0 && levelIndex-1 < levelDataBase.levels.Length)
         {
-            Debug.Log($"Loaded Level Data: Level {levelData.level}, Optimum Questions: {levelData.optimumquestioncount}");
+            currentLevelData = levelDataBase.levels[levelIndex-1];
+            Debug.Log($"Loaded Level {currentLevelData.level}, Opt Q: {currentLevelData.optimumquestioncount}");
         }
         else
         {
-            Debug.LogError("Failed to load Level Data.");
+            Debug.LogError("LevelDatabase içinde bu index yok");
         }
     }
+
+    public LevelDataSO GetCurrentLevelData() => currentLevelData;
+    
+    public int GetLevelIndex() => currentLevelData != null ? currentLevelData.level : 0;
 }
