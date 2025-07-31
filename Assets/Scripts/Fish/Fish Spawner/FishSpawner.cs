@@ -8,6 +8,7 @@ public class FishSpawner : MonoBehaviour
     [SerializeField] Transform spawnPoint;
     [SerializeField] private Countdown countdown;
     public event Action OnFishSpawned;
+    [SerializeField] private Timer timer;
 
     private void Awake()
     {
@@ -41,12 +42,22 @@ public class FishSpawner : MonoBehaviour
             {
                 OnFishSpawned?.Invoke(); // fallback
             }
-            
+
             Debug.Log("Fish spawned at: " + spawnPoint.position);
         }
         else
         {
             Debug.LogWarning("Fish or spawn point is not assigned in the FishSpawner.");
+        }
+
+        if (timer != null)
+        {
+            timer.StartTimer();
+            Debug.Log("Timer started after fish spawn.");
+        }
+        if (timer == null)
+        {
+            Debug.LogError("Timer is not assigned in the FishSpawner.");
         }
     }
 }
