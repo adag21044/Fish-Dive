@@ -6,6 +6,12 @@ public class LevelDataLoader : MonoBehaviour
     private LevelDataSO currentLevelData;
     public static bool isLevelOne = false;
 
+    private void Start()
+    {
+        LoadLevelData(1); // default to level 1
+        isLevelOne = true;
+    }
+
 
     private void Update()
     {
