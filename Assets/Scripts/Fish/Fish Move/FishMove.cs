@@ -5,7 +5,7 @@ public class FishMove : MonoBehaviour
 {
     public event Action OnStartMoving;
     public event Action OnStopMoving;
-
+    
     private Vector2 touchStartPosition;
     private Vector2 direction;
     private bool isDragging = false;

@@ -2501,7 +2501,7 @@ MonoBehaviour:
   yMin: -3.3
   yMax: 4
   minDistanceBetweenBubbles: 1
-  spawnRate: 1
+  spawnRate: 10
   spawnedBubbles: []
 --- !u!4 &1410457351
 Transform:

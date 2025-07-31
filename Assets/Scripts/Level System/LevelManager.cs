@@ -37,7 +37,7 @@ public class LevelManager : MonoBehaviour
 
             float gameBoardHeight = 6f;
             float fishHeight = 1.0f;
-            CurrentLevelData.spawninterval = CurrentLevelData.speed * (fishHeight / gameBoardHeight);
+            CurrentLevelData.spawninterval = 3f;
         }
         else
         {

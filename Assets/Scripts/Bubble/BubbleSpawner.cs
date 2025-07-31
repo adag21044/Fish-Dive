@@ -6,7 +6,7 @@ public class BubbleSpawner : MonoBehaviour
 {
     [SerializeField] public BubbleSO[] bubbleData; // Reference to the BubbleSO scriptable object
     [SerializeField] private GameObject bubblePrefab;
-    public GameObject BubblePrefab => bubblePrefab; // sadece getter
+    public GameObject BubblePrefab => bubblePrefab; // getter
 
 
     [SerializeField] private int minNumber = 1;
@@ -18,20 +18,24 @@ public class BubbleSpawner : MonoBehaviour
     [SerializeField] private float yMin = -2.75f;
     [SerializeField] private float yMax = 3.9f;
     [SerializeField] private float minDistanceBetweenBubbles = 1.0f;
-    [SerializeField] private float spawnRate = 1.0f; // Spawn interval in seconds
+    [SerializeField] private float spawnRate = 10.0f; // Spawn interval in seconds
     private List<Vector2> existingBubblePositions = new List<Vector2>();
     public List<GameObject> spawnedBubbles = new List<GameObject>();
 
     private void Start()
     {
+        var fishSpawner = FindObjectOfType<FishSpawner>();
+        if (fishSpawner != null)
+        {
+            fishSpawner.OnFishSpawned += BeginBubbleSpawning;
+        }
+
         var data = LevelManager.Instance.CurrentLevelData;
         minNumber = data.minnumber;
         maxNumber = data.maxnumber;
         spawnRate = data.spawninterval;
 
         SpawnInitialBubbles(data.bubblecount);
-
-        StartSpawnLoop(data.spawncount);
     }
 
     // Only for testing purposes
@@ -43,6 +47,32 @@ public class BubbleSpawner : MonoBehaviour
         }
     }
 
+    private void BeginBubbleSpawning()
+    {
+        if (spawnLoopTween != null && spawnLoopTween.IsActive())
+            spawnLoopTween.Kill();
+
+        // İlk baloncuğu hemen spawn’la (isterseniz bu satırı kaldırabilirsiniz)
+        SpawnBubble();
+
+        // Ardından döngüyü başlat
+        StartSpawnLoop();
+    }
+
+    private void StartSpawnLoop()
+    {
+        Debug.Log($"Spawning bubble after {spawnRate} seconds");
+        // spawnRate kadar bekle, sonra SpawnBubble() çağır, 
+        // ardından yeniden StartSpawnLoop() ile kendini tekrar et
+        spawnLoopTween = DOVirtual.DelayedCall(spawnRate, () =>
+        {
+            SpawnBubble();
+            StartSpawnLoop();
+        }, false);
+    }
+
+
+
     private void SpawnInitialBubbles(int count)
     {
         for (int i = 0; i < count; i++)
@@ -53,17 +83,7 @@ public class BubbleSpawner : MonoBehaviour
 
     private Tween spawnLoopTween;
 
-    private void StartSpawnLoop(int spawnCount)
-    {
-        spawnLoopTween = DOVirtual.DelayedCall(spawnRate, () =>
-        {
-            SpawnBubblesSequentially(spawnCount);
-
-            // spawnRate dolunca tekrar tetikle
-            StartSpawnLoop(spawnCount);
-
-        }, false);
-    }
+    
 
     private void SpawnBubblesSequentially(int count)
     {
@@ -177,8 +197,5 @@ public class BubbleSpawner : MonoBehaviour
     public void FreePosition(Vector2 position)
     {
         existingBubblePositions.Remove(position);
-    }
-
-
-    
+    }   
 }
