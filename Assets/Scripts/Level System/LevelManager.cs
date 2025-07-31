@@ -35,8 +35,7 @@ public class LevelManager : MonoBehaviour
         {
             Debug.Log($"Loaded Level {level} with speed: {CurrentLevelData.speed}");
 
-            float gameBoardHeight = 6f;
-            float fishHeight = 1.0f;
+            
             CurrentLevelData.spawninterval = 3f;
         }
         else
