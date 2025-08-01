@@ -10,6 +10,11 @@ public class BubbleDestroyAnimator : MonoBehaviour
 
     private void Awake()
     {
+        InitializeSpriteRenderer();
+    }
+
+    private void InitializeSpriteRenderer()
+    {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
     
