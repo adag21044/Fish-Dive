@@ -1,10 +1,12 @@
 using UnityEngine;
+using System;
 
 public class LevelDataLoader : MonoBehaviour
 {
     public LevelDatabase levelDataBase;
     private LevelDataSO currentLevelData;
     public static bool isLevelOne = false;
+    public static event Action OnLevelDataChanged;
 
     private void Start()
     {
@@ -74,6 +76,8 @@ public class LevelDataLoader : MonoBehaviour
         {
             Debug.LogError("LevelDatabase içinde bu index yok");
         }
+
+        OnLevelDataChanged?.Invoke();
     }
 
     public LevelDataSO GetCurrentLevelData() => currentLevelData;

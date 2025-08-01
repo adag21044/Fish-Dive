@@ -17,7 +17,7 @@ public class BubbleMover : MonoBehaviour
         }
 
         SetSpeed(levelData.levels[levelDataLoader.GetLevelIndex()].speed);
-        
+
         Debug.Log($"Loaded level data for level {levelDataLoader.GetLevelIndex()} with speed: {speed}");
         Debug.Log($"Bubble speed set to: {speed}");
     }
@@ -43,8 +43,25 @@ public class BubbleMover : MonoBehaviour
         }
     }
 
-    private void SetSpeed(float speed)
+    private void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
+
+    
+    private void OnEnable()
+    {
+        LevelDataLoader.OnLevelDataChanged += UpdateSpeedFromLevelData;
+    }
+
+    private void OnDisable()
+    {
+        LevelDataLoader.OnLevelDataChanged -= UpdateSpeedFromLevelData;
+    }
+
+    private void UpdateSpeedFromLevelData()
     {
         speed = levelData.levels[levelDataLoader.GetLevelIndex()].speed;
+        Debug.Log($"[BubbleMover] Speed updated from level data: {speed}");
     }
 }
