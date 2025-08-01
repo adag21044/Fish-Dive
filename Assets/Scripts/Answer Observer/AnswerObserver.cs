@@ -8,6 +8,7 @@ public class AnswerObserver : MonoBehaviour
     private int correctAnswerCount = 0;
     private float levelDuration = 90f;
     private float timer = 0f;
+    [SerializeField] private NumberAnnouncer numberAnnouncer;
 
     private void Update()
     {
@@ -25,7 +26,7 @@ public class AnswerObserver : MonoBehaviour
         }
 
     }
-    
+
     private void CheckLevelCompletion()
     {
         int requiredCorrect = LevelManager.Instance.CurrentLevelData.optimumquestioncount;
@@ -84,5 +85,7 @@ public class AnswerObserver : MonoBehaviour
                 Debug.LogWarning("FishAnimator is null! Check assignments in Inspector.");
             }
         }
+
+        numberAnnouncer?.StartAnnouncing();
     }
 }

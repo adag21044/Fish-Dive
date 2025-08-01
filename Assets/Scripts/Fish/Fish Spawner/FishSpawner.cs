@@ -9,6 +9,7 @@ public class FishSpawner : MonoBehaviour
     [SerializeField] private Countdown countdown;
     public event Action OnFishSpawned;
     [SerializeField] private Timer timer;
+    [SerializeField] private NumberAnnouncer numberAnnouncer;
 
     private void Awake()
     {
@@ -59,5 +60,7 @@ public class FishSpawner : MonoBehaviour
         {
             Debug.LogError("Timer is not assigned in the FishSpawner.");
         }
+
+        numberAnnouncer.StartAnnouncing();
     }
 }

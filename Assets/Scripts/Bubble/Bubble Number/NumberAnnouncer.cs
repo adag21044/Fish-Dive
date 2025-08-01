@@ -9,14 +9,41 @@ public class NumberAnnouncer : MonoBehaviour
     [SerializeField] private MegaphoneAnimator megaphoneAnimator;
     [SerializeField] public static int announcedNumber = 1;
     public static event Action OnNumberAnnounced;
+    [SerializeField] private float announceInterval = 5f; // Time interval between announcements
+    private float announceTimer;
+    private bool isRunning = false;
 
-    // for only testing purposes
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        // for only testing purposes
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    AnnounceNumber(GenerateRandomNumber());
+        //}
+
+        if (!isRunning)
         {
+            return;
+        }
+
+        announceTimer += Time.deltaTime;
+        if (announceTimer >= announceInterval)
+        {
+            announceTimer = 0f;
             AnnounceNumber(GenerateRandomNumber());
         }
+    }
+
+    public void StartAnnouncing()
+    {
+        announceTimer = 0f;
+        isRunning = true;
+    }
+
+    private void StopAnnouncing()
+    {
+        isRunning = false;
     }
 
     private int AnnounceNumber(int number)

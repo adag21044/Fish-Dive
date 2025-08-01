@@ -1872,6 +1872,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1799830907}
   countdown: {fileID: 1182030386}
   timer: {fileID: 444929119}
+  numberAnnouncer: {fileID: 971988877}
 --- !u!4 &932978985
 Transform:
   m_ObjectHideFlags: 0
@@ -1971,6 +1972,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7f8bc88d517a1a34aa62b763b5333211, type: 3}
   audioSource: {fileID: 1231145122}
   megaphoneAnimator: {fileID: 1500141171}
+  announceInterval: 5
 --- !u!4 &971988878
 Transform:
   m_ObjectHideFlags: 0
@@ -2625,6 +2627,7 @@ MonoBehaviour:
   bubbleNumberSelector: {fileID: 1797458631}
   heartController: {fileID: 1797458632}
   fishController: {fileID: 1797458630}
+  numberAnnouncer: {fileID: 971988877}
 --- !u!4 &1396434050
 Transform:
   m_ObjectHideFlags: 0
@@ -2682,8 +2685,8 @@ MonoBehaviour:
   maxNumber: 10
   xMin: -2.3
   xMax: 2.3
-  yMin: -3.3
-  yMax: 4
+  yMin: -3
+  yMax: 0
   minDistanceBetweenBubbles: 1
   spawnRate: 10
   spawnedBubbles: []
@@ -4121,6 +4124,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1999008761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1999008762}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1999008762
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999008761}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.17, y: 0.65, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2121515615
 GameObject:
   m_ObjectHideFlags: 0
@@ -4334,3 +4368,4 @@ SceneRoots:
   - {fileID: 1141681533}
   - {fileID: 1182030387}
   - {fileID: 334678656}
+  - {fileID: 1999008762}
