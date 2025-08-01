@@ -12,19 +12,33 @@ public class AnswerObserver : MonoBehaviour
 
     private void Update()
     {
-        timer += Time.deltaTime;
+        RunTimer();
 
         if (timer >= levelDuration)
         {
             CheckLevelCompletion();
         }
 
+        CheckAnswer();
+    }
+
+    private void CheckAnswer()
+    {
         if (bubbleNumberSelector.SelectedBubbleNumber == NumberAnnouncer.announcedNumber)
         {
             Debug.Log("Correct number selected: " + bubbleNumberSelector.SelectedBubbleNumber);
-            correctAnswerCount++;
+            IncreaseCorrectAnswerCount();
         }
+    }
 
+    private void RunTimer()
+    {
+        timer += Time.deltaTime;
+    }
+
+    private void IncreaseCorrectAnswerCount()
+    {
+        correctAnswerCount++;
     }
 
     private void CheckLevelCompletion()
