@@ -1,14 +1,16 @@
 using UnityEngine;
+using System;
 
 public class AnswerObserver : MonoBehaviour
 {
     [SerializeField] private BubbleNumberSelector bubbleNumberSelector;
     [SerializeField] private HeartController heartController;
     [SerializeField] private FishController fishController;
-    private int correctAnswerCount = 0;
+    [SerializeField] private int correctAnswerCount = 0;
     private float levelDuration = 90f;
     private float timer = 0f;
     [SerializeField] private NumberAnnouncer numberAnnouncer;
+    public static event Action<int> OnRightAnswerSelected;
 
     private void Update()
     {
@@ -17,9 +19,9 @@ public class AnswerObserver : MonoBehaviour
         if (timer >= levelDuration)
         {
             CheckLevelCompletion();
-        }
-
-        CheckAnswer();
+        }   
+        
+        
     }
 
     private void CheckAnswer()
@@ -27,7 +29,8 @@ public class AnswerObserver : MonoBehaviour
         if (bubbleNumberSelector.SelectedBubbleNumber == NumberAnnouncer.announcedNumber)
         {
             Debug.Log("Correct number selected: " + bubbleNumberSelector.SelectedBubbleNumber);
-            IncreaseCorrectAnswerCount();
+
+            OnRightAnswerSelected?.Invoke(IncreaseCorrectAnswerCount());
         }
     }
 
@@ -36,10 +39,13 @@ public class AnswerObserver : MonoBehaviour
         timer += Time.deltaTime;
     }
 
-    private void IncreaseCorrectAnswerCount()
+    private int IncreaseCorrectAnswerCount()
     {
+        Debug.Log("Increasing correct answer count.");
         correctAnswerCount++;
+        return correctAnswerCount;
     }
+
 
     private void CheckLevelCompletion()
     {
@@ -56,7 +62,7 @@ public class AnswerObserver : MonoBehaviour
         else
         {
             Debug.Log("Level failed or repeated.");
-            // Retry logic veya aynı seviye tekrarı
+            // Retry logic 
         }
     }
 
@@ -83,6 +89,7 @@ public class AnswerObserver : MonoBehaviour
         {
             Debug.Log("Correct number selected: " + bubbleNumberSelector.SelectedBubbleNumber);
             // Handle correct selection logic here
+            IncreaseCorrectAnswerCount();
         }
         else
         {
