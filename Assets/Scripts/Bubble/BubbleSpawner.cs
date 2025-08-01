@@ -40,7 +40,7 @@ public class BubbleSpawner : MonoBehaviour
 
     private void SubscribeToFishSpawner()
     {
-        var fishSpawner = FindObjectOfType<FishSpawner>();
+        var fishSpawner = FindFirstObjectByType<FishSpawner>();
         if (fishSpawner != null)
         {
             fishSpawner.OnFishSpawned += BeginBubbleSpawning;
@@ -189,7 +189,7 @@ public class BubbleSpawner : MonoBehaviour
             FreePosition(spawnPos);
         });
         spawnedBubbles.Add(bubble);
-        FindObjectOfType<DelayedCorrectBubbleSpawner>()?.NotifyBubbleSpawned();
+        FindFirstObjectByType<DelayedCorrectBubbleSpawner>()?.NotifyBubbleSpawned();
     }
 
     private bool IsPositionSafe(Vector2 newPos)
