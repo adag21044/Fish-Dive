@@ -24,6 +24,11 @@ public class FishAnimator : MonoBehaviour
 
     private void Start()
     {
+        SetAnimator();
+    }
+
+    private void SetAnimator()
+    {
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalPos = transform.localPosition;
     }
