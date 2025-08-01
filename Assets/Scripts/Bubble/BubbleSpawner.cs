@@ -24,18 +24,9 @@ public class BubbleSpawner : MonoBehaviour
 
     private void Start()
     {
-        var fishSpawner = FindObjectOfType<FishSpawner>();
-        if (fishSpawner != null)
-        {
-            fishSpawner.OnFishSpawned += BeginBubbleSpawning;
-        }
-
-        var data = LevelManager.Instance.CurrentLevelData;
-        minNumber = data.minnumber;
-        maxNumber = data.maxnumber;
-        spawnRate = data.spawninterval;
-
-        SpawnInitialBubbles(data.bubblecount);
+        SubscribeToFishSpawner();
+        LoadLevelParameters();
+        SpawnInitialBubblesFromLevelData();
     }
 
     // Only for testing purposes
@@ -45,6 +36,27 @@ public class BubbleSpawner : MonoBehaviour
         {
             SpawnBubble();
         }
+    }
+
+    private void SubscribeToFishSpawner()
+    {
+        var fishSpawner = FindObjectOfType<FishSpawner>();
+        if (fishSpawner != null)
+        {
+            fishSpawner.OnFishSpawned += BeginBubbleSpawning;
+        }
+        else
+        {
+            Debug.LogWarning("FishSpawner not found in the scene.");
+        }
+    }
+
+    private void LoadLevelParameters()
+    {
+        var data = LevelManager.Instance.CurrentLevelData;
+        minNumber = data.minnumber;
+        maxNumber = data.maxnumber;
+        spawnRate = data.spawninterval;
     }
 
     private void BeginBubbleSpawning()
@@ -100,6 +112,11 @@ public class BubbleSpawner : MonoBehaviour
         }
     }
 
+    private void SpawnInitialBubblesFromLevelData()
+    {
+        int initialCount = LevelManager.Instance.CurrentLevelData.bubblecount;
+        SpawnInitialBubbles(initialCount);
+    }
 
 
     private void OnDestroy()
