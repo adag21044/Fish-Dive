@@ -8,6 +8,11 @@ public class BubbleDestroyer : MonoBehaviour
     
     private void Start()
     {
+        InitializeComponents();
+    }
+
+    private void InitializeComponents()
+    {
         bubbleDestroyAnimator = GetComponent<BubbleDestroyAnimator>();
         bubbleController = GetComponent<BubbleController>();
     }
