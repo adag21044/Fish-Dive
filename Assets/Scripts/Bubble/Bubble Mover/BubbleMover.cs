@@ -8,8 +8,7 @@ public class BubbleMover : MonoBehaviour
 
     private void Awake()
     {
-        if (levelDataLoader == null)
-        levelDataLoader = FindFirstObjectByType<LevelDataLoader>();
+        FindLevelDataLoader();
 
         if (levelDataLoader == null)
         {
@@ -17,7 +16,8 @@ public class BubbleMover : MonoBehaviour
             return;
         }
 
-        speed = levelData.levels[levelDataLoader.GetLevelIndex()].speed;
+        SetSpeed(levelData.levels[levelDataLoader.GetLevelIndex()].speed);
+        
         Debug.Log($"Loaded level data for level {levelDataLoader.GetLevelIndex()} with speed: {speed}");
         Debug.Log($"Bubble speed set to: {speed}");
     }
@@ -33,5 +33,18 @@ public class BubbleMover : MonoBehaviour
     {
         // Move the bubble in the specified direction at the given speed
         transform.position += direction * speed * Time.deltaTime;
+    }
+
+    private void FindLevelDataLoader()
+    {
+        if (levelDataLoader == null)
+        {
+            levelDataLoader = FindFirstObjectByType<LevelDataLoader>();
+        }
+    }
+
+    private void SetSpeed(float speed)
+    {
+        speed = levelData.levels[levelDataLoader.GetLevelIndex()].speed;
     }
 }

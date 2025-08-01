@@ -7,9 +7,19 @@ public class BubbleAutoDestroy : MonoBehaviour
 
     private void Update()
     {
+        CheckDistance();
+    }
+
+    private void DestroyBubble()
+    {
+        bubbleController.DisappearAtTop();
+    }
+
+    private void CheckDistance()
+    {
         if (transform.position.y > topYLimit)
         {
-            bubbleController.DisappearAtTop();
+            DestroyBubble();
         }
     }
 }
