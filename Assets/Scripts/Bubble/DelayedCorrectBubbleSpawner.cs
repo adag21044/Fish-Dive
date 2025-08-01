@@ -14,10 +14,14 @@ public class DelayedCorrectBubbleSpawner : MonoBehaviour
 
     private void Start()
     {
-        var data = LevelManager.Instance.CurrentLevelData;
-        delayCount = UnityEngine.Random.Range(data.mindelaycount, data.maxdelaycount + 1);
+        delayCount = GetDelayCount();
     }
 
+    private int GetDelayCount()
+    {   
+        var data = LevelManager.Instance.CurrentLevelData;
+        return Random.Range(data.mindelaycount, data.maxdelaycount + 1);
+    }
 
     private void OnEnable()
     {

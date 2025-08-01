@@ -36,7 +36,11 @@ public class FishAnimator : MonoBehaviour
     private void Update()
     {
         if (!isMoving) return;
+        AnimateMove(); 
+    }
 
+    private void AnimateMove()
+    {
         timer += Time.deltaTime;
         if (timer >= switchInterval)
         {
