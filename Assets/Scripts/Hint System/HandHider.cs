@@ -14,13 +14,13 @@ public class HandHider : MonoBehaviour
     {
         handObject.SetActive(false);
 
-        // Geri sayım bittiğinde işaretleme
+        
         Countdown.Instance.OnCountdownFinished += HandleCountdownFinished;
     }
 
     private void Update()
     {
-        // ✅ Sadece 1. seviyede çalışmalı
+        
         if (LevelManager.Instance.CurrentLevelData.level != 1)
         {
             HideHandHint();
@@ -37,7 +37,7 @@ public class HandHider : MonoBehaviour
         else
         {
             HideHandHint();
-            hasShown = true; // tekrar gösterilmesin
+            hasShown = true; 
         }
     }
 

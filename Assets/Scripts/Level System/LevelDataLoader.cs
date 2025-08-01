@@ -9,7 +9,7 @@ public class LevelDataLoader : MonoBehaviour
     private void Start()
     {
         LoadLevelData(1); // default to level 1
-        isLevelOne = true;
+        SetLevelOne(); // Set isLevelOne to true for level 1
     }
 
 
@@ -80,4 +80,5 @@ public class LevelDataLoader : MonoBehaviour
 
     public int GetLevelIndex() => currentLevelData != null ? currentLevelData.level : 0;
     public int GetGameDuration => currentLevelData != null ? (int)currentLevelData.gameDuration : 0;
+    private void SetLevelOne() => isLevelOne = true;
 }
