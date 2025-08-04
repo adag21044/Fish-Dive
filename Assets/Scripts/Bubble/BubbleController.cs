@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class BubbleController : MonoBehaviour
 {
@@ -8,10 +9,12 @@ public class BubbleController : MonoBehaviour
     [SerializeField] private BubbleSoundPlayer soundPlayer;
 
     private BubbleSpawner bubbleSpawner;
+    private BubbleAutoDestroy bubbleAutoDestroy;
     private Vector2 spawnPosition;
 
     private bool isPopped = false;
-
+    public static event Action OnBubbleReachedTop;
+    
     public void Pop()
     {
         if (isPopped)
@@ -49,6 +52,8 @@ public class BubbleController : MonoBehaviour
     public void DisappearAtTop(float fadeDuration = 0.4f)
     {
         if (isPopped) return; // Zaten patladıysa animasyon oynama
+
+        OnBubbleReachedTop?.Invoke();
 
         isPopped = true;
         bubbleCollider.enabled = false;

@@ -1,9 +1,16 @@
+using System;
 using UnityEngine;
 
 public class BubbleAutoDestroy : MonoBehaviour
 {
     [SerializeField] private float topYLimit = 5.2f;
     [SerializeField] private BubbleController bubbleController;
+      
+
+    private void OnEnable()
+    {
+        BubbleController.OnBubbleReachedTop += DestroyBubble;
+    }
 
     private void Update()
     {
@@ -19,7 +26,7 @@ public class BubbleAutoDestroy : MonoBehaviour
     {
         if (transform.position.y > topYLimit)
         {
-            DestroyBubble();
+            bubbleController.DisappearAtTop();
         }
     }
 }
