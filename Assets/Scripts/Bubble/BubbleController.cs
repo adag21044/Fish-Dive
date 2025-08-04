@@ -13,8 +13,23 @@ public class BubbleController : MonoBehaviour
     private Vector2 spawnPosition;
 
     private bool isPopped = false;
-    public static event Action OnBubbleReachedTop;
     
+    private void Awake()
+    {
+        bubbleAutoDestroy = GetComponent<BubbleAutoDestroy>();
+
+        if (bubbleAutoDestroy != null)
+        {
+            bubbleAutoDestroy.OnBubbleReachedTop += HandleAutoDestroy;
+        }
+            
+    }
+
+    private void HandleAutoDestroy()
+    {
+        DisappearAtTop(); 
+    }
+        
     public void Pop()
     {
         if (isPopped)
@@ -53,7 +68,7 @@ public class BubbleController : MonoBehaviour
     {
         if (isPopped) return; // Zaten patladıysa animasyon oynama
 
-        OnBubbleReachedTop?.Invoke();
+        
 
         isPopped = true;
         bubbleCollider.enabled = false;
