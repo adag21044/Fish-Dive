@@ -23,16 +23,6 @@ public class AnswerObserver : MonoBehaviour
         }     
     }
 
-    private void CheckAnswer()
-    {
-        if (bubbleNumberSelector.SelectedBubbleNumber == NumberAnnouncer.announcedNumber)
-        {
-            Debug.Log("Correct number selected: " + bubbleNumberSelector.SelectedBubbleNumber);
-
-            OnRightAnswerSelected?.Invoke(IncreaseCorrectAnswerCount());
-        }
-    }
-
     private void RunTimer()
     {
         timer += Time.deltaTime;
