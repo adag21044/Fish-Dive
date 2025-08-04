@@ -3,18 +3,9 @@ using TMPro;
 
 public class TimerView : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI timerText;
-    [SerializeField] private Timer timer;
+    [SerializeField] public TextMeshProUGUI timerText;
 
-    private void Update()
-    {
-        if (timer != null)
-        {
-            RenderTimer(timer.GetTimer());
-        }
-    }
-
-    private void RenderTimer(float seconds)
+    public void RenderTimer(float seconds)
     {
         if (timerText != null)
         {
