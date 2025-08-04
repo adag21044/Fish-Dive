@@ -66,5 +66,4 @@ public class Countdown : MonoBehaviour
         countdownText.DOFade(1f, 0f); // reset fade
         countdownText.transform.DOScale(1f, 0.5f).SetEase(Ease.OutBack);
     }
-
 }
