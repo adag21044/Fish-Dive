@@ -13,7 +13,7 @@ public class BubbleNumberSelector : MonoBehaviour
         {
             // Logic to select a bubble number when the fish enters the trigger
             Debug.Log(other.GetComponent<BubbleNumberController>().GetNumber() + " selected by fish");
-            // You can add more logic here to handle the selection of bubble numbers
+
             SelectedBubbleNumber = other.GetComponent<BubbleNumberController>().GetNumber();
             OnFishEnteredTrigger?.Invoke();
         }

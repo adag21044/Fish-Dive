@@ -7,10 +7,11 @@ public class AnswerObserver : MonoBehaviour
     [SerializeField] private HeartController heartController;
     [SerializeField] private FishController fishController;
     [SerializeField] private int correctAnswerCount = 0;
-    private float levelDuration = 90f;
-    private float timer = 0f;
     [SerializeField] private NumberAnnouncer numberAnnouncer;
     public static event Action<int> OnRightAnswerSelected;
+    private float levelDuration = 90f;
+    private float timer = 0f;
+    
 
     private void Update()
     {
@@ -19,9 +20,7 @@ public class AnswerObserver : MonoBehaviour
         if (timer >= levelDuration)
         {
             CheckLevelCompletion();
-        }   
-        
-        
+        }     
     }
 
     private void CheckAnswer()
@@ -66,9 +65,6 @@ public class AnswerObserver : MonoBehaviour
         }
     }
 
-
-
-
     private void OnEnable()
     {
         bubbleNumberSelector.OnFishEnteredTrigger += HandleFishEnteredTrigger;
@@ -83,7 +79,6 @@ public class AnswerObserver : MonoBehaviour
     {
         // Logic to handle when a fish enters the trigger
         Debug.Log("Fish entered the trigger, handling selection logic.");
-        // You can add more logic here to process the selected bubble number
 
         if (bubbleNumberSelector.SelectedBubbleNumber == NumberAnnouncer.announcedNumber)
         {
@@ -106,7 +101,6 @@ public class AnswerObserver : MonoBehaviour
                 Debug.LogWarning("FishAnimator is null! Check assignments in Inspector.");
             }
         }
-
         numberAnnouncer?.StartAnnouncing();
     }
 }

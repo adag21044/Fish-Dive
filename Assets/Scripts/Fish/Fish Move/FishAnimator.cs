@@ -21,22 +21,21 @@ public class FishAnimator : MonoBehaviour
     private Vector3 originalPos;
     public bool isShaking { get; private set; }
 
-
     private void Start()
     {
         SetAnimator();
-    }
-
-    private void SetAnimator()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        originalPos = transform.localPosition;
     }
 
     private void Update()
     {
         if (!isMoving) return;
         AnimateMove(); 
+    }
+
+    private void SetAnimator()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalPos = transform.localPosition;
     }
 
     private void AnimateMove()
@@ -65,14 +64,12 @@ public class FishAnimator : MonoBehaviour
 
         transform.DOKill();
 
-
         transform.DOShakeRotation(
             shakeDuration, strength: new Vector3(0, 0, shakeStrength * 100), vibrato: 5, randomness: 0, fadeOut: true)
          .SetEase(Ease.InOutSine)
          .OnComplete(() => {
-        transform.localRotation = Quaternion.identity;
-        isShaking = false;
-    });
-         
+                                transform.localRotation = Quaternion.identity;
+                                isShaking = false;
+                      });
     }
 }

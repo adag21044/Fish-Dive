@@ -5,7 +5,6 @@ public class BubbleNumberController : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private TextMeshPro text;
-
     public int bubbleNumber;
 
     private void Awake()

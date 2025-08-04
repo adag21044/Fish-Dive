@@ -27,8 +27,6 @@ public class BubbleMover : MonoBehaviour
         MoveBubble(Vector3.up, speed);
     }
 
-    // TODO: Create safe destination distance between bubbles
-
     private void MoveBubble(Vector3 direction, float speed)
     {
         // Move the bubble in the specified direction at the given speed
@@ -48,7 +46,6 @@ public class BubbleMover : MonoBehaviour
         speed = newSpeed;
     }
 
-    
     private void OnEnable()
     {
         LevelDataLoader.OnLevelDataChanged += UpdateSpeedFromLevelData;

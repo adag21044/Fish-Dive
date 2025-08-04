@@ -60,7 +60,7 @@ public class FishSpawner : MonoBehaviour
         {
             Debug.LogError("Timer is not assigned in the FishSpawner.");
         }
-
+        
         numberAnnouncer.StartAnnouncing();
     }
 }

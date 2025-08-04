@@ -7,8 +7,6 @@ public class BubbleSpawner : MonoBehaviour
     [SerializeField] public BubbleSO[] bubbleData; // Reference to the BubbleSO scriptable object
     [SerializeField] private GameObject bubblePrefab;
     public GameObject BubblePrefab => bubblePrefab; // getter
-
-
     [SerializeField] private int minNumber = 1;
     [SerializeField] private int maxNumber = 10;
 
@@ -74,16 +72,13 @@ public class BubbleSpawner : MonoBehaviour
     private void StartSpawnLoop()
     {
         Debug.Log($"Spawning bubble after {spawnRate} seconds");
-        // spawnRate kadar bekle, sonra SpawnBubble() çağır, 
-        // ardından yeniden StartSpawnLoop() ile kendini tekrar et
+
         spawnLoopTween = DOVirtual.DelayedCall(spawnRate, () =>
         {
             SpawnBubble();
             StartSpawnLoop();
         }, false);
     }
-
-
 
     private void SpawnInitialBubbles(int count)
     {
@@ -94,8 +89,6 @@ public class BubbleSpawner : MonoBehaviour
     }
 
     private Tween spawnLoopTween;
-
-    
 
     private void SpawnBubblesSequentially(int count)
     {
@@ -118,13 +111,11 @@ public class BubbleSpawner : MonoBehaviour
         SpawnInitialBubbles(initialCount);
     }
 
-
     private void OnDestroy()
     {
         if (spawnLoopTween != null && spawnLoopTween.IsActive())
             spawnLoopTween.Kill();
     }
-
 
     private void SpawnBubble()
     {

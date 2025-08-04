@@ -32,5 +32,4 @@ public class BubbleDestroyer : MonoBehaviour
             Debug.Log(gameObject.name + " popped by destroyer");
         }
     }
-
 }

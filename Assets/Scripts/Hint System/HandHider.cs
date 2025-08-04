@@ -13,7 +13,6 @@ public class HandHider : MonoBehaviour
     private void Awake()
     {
         handObject.SetActive(false);
-
         
         Countdown.Instance.OnCountdownFinished += HandleCountdownFinished;
     }

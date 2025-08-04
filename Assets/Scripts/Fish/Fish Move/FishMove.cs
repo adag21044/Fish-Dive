@@ -30,7 +30,6 @@ public class FishMove : MonoBehaviour
 
     private void Update()
     {
-        // Input her zaman Update() içinde alınır
         if (Input.GetMouseButtonDown(0))
         {
             isTouched = true;

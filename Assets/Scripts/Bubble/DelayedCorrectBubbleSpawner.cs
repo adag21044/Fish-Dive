@@ -16,13 +16,7 @@ public class DelayedCorrectBubbleSpawner : MonoBehaviour
     {
         delayCount = GetDelayCount();
     }
-
-    private int GetDelayCount()
-    {   
-        var data = LevelManager.Instance.CurrentLevelData;
-        return Random.Range(data.mindelaycount, data.maxdelaycount + 1);
-    }
-
+    
     private void OnEnable()
     {
         NumberAnnouncer.OnNumberAnnounced += ResetLogic;
@@ -33,7 +27,6 @@ public class DelayedCorrectBubbleSpawner : MonoBehaviour
         NumberAnnouncer.OnNumberAnnounced -= ResetLogic;
     }
 
-
     private void Update()
     {
         // Eğer doğru sayı zaten ekrandaysa bir şey yapma
@@ -41,6 +34,12 @@ public class DelayedCorrectBubbleSpawner : MonoBehaviour
         {
             correctBubbleSpawned = true;
         }
+    }
+
+    private int GetDelayCount()
+    {
+        var data = LevelManager.Instance.CurrentLevelData;
+        return Random.Range(data.mindelaycount, data.maxdelaycount + 1);
     }
 
     public void NotifyBubbleSpawned()
@@ -95,7 +94,6 @@ public class DelayedCorrectBubbleSpawner : MonoBehaviour
 
         return false;
     }
-
 
     private void SpawnCorrectBubble()
     {

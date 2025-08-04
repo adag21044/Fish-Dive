@@ -3,7 +3,6 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
-
     public LevelDataSO CurrentLevelData { get; private set; }
 
     [Header("Level Seçimi (1 ile başlar)")]

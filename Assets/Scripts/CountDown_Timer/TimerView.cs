@@ -21,5 +21,4 @@ public class TimerView : MonoBehaviour
             timerText.text = seconds.ToString("F0");
         }
     }
-
 }   

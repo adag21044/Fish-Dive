@@ -41,11 +41,6 @@ public class NumberAnnouncer : MonoBehaviour
         isRunning = true;
     }
 
-    private void StopAnnouncing()
-    {
-        isRunning = false;
-    }
-
     private int AnnounceNumber(int number)
     {
         if (number < 0 || number >= numberClips.Length)
