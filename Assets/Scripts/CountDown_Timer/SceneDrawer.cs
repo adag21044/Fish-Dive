@@ -22,8 +22,8 @@ public class SceneDrawer : MonoBehaviour
     {
         OnSceneDrawn -= ShowHearts;
         OnSceneDrawn -= ShowMegaphone;
-        OnSceneDrawn -= () => timer.SetTimerActive();
-        OnSceneDrawn -= timer.StartTimer; 
+        OnSceneDrawn -= () => Timer.Instance.SetTimerActive();
+        OnSceneDrawn -= Timer.Instance.StartTimer; 
     }
 
     private void DrawScene()
