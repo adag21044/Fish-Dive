@@ -2,7 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 
-public class SceneDrawer : MonoBehaviour
+public class SceneController : MonoBehaviour
 {
     [SerializeField] private GameObject[] sceneObjects;
     [SerializeField] private GameObject megaphone;
