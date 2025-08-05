@@ -1,14 +1,20 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager instance;
+    public static GameManager Instance { get; private set; }
+    [SerializeField] private FishSpawner fishSpawner;
+    [SerializeField] private NumberAnnouncer numberAnnouncer;
 
+    
     private void Awake()
     {
-        if (instance == null)
+        fishSpawner = FindFirstObjectByType<FishSpawner>();
+        numberAnnouncer = FindFirstObjectByType<NumberAnnouncer>();
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -17,9 +23,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void StartGame()
+    private void Start() // ✅ Burada bağla
     {
+        if (fishSpawner != null && numberAnnouncer != null)
+        {
+            fishSpawner.OnFishSpawned += numberAnnouncer.StartAnnouncing;
+        }
+        else
+        {
+            Debug.LogError("GameManager: FishSpawner or NumberAnnouncer not assigned!");
+        }
+    }
 
+    private void OnDisable()
+    {
+        if (fishSpawner != null && numberAnnouncer != null)
+        {
+            fishSpawner.OnFishSpawned -= numberAnnouncer.StartAnnouncing;
+        }
+    }
+
+
+    public static void StartGame()
+    {
+        SceneManager.LoadScene("Game");
     }
 
     private void EndGame()

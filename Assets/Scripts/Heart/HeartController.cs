@@ -42,5 +42,10 @@ public class HeartController : MonoBehaviour
 
         heartDestroyers[nextIndex].DestroyHeart();
         nextIndex++;
+
+        if (nextIndex >= heartDestroyers.Length)
+        {
+            GameManager.StartGame(); // End game if all hearts are destroyed
+        }
     }
 }
