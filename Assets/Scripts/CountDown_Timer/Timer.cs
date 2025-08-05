@@ -4,13 +4,13 @@ public class Timer : MonoBehaviour
 {
     public static Timer Instance { get; private set; }
     private float seconds;
-    [SerializeField] private LevelDataLoader levelDataLoader;
+    private LevelDataSO currentLevelData;
     [SerializeField] private TimerView timerView;
     private bool isRunning = false;
 
     private void Awake()
     {
-        Debug.Log($"[Timer] Awake called. levelDataLoader is null? {levelDataLoader == null}");
+        Debug.Log("[Timer] Awake called.");
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject); // varsa fazlasını yok et
@@ -18,6 +18,23 @@ public class Timer : MonoBehaviour
         }
 
         Instance = this;
+        // Initialize with current level data if already loaded
+        if (LevelManager.Instance != null && LevelManager.Instance.CurrentLevelData != null)
+        {
+            currentLevelData = LevelManager.Instance.CurrentLevelData;
+        }
+
+        LevelManager.OnLevelLoaded += HandleLevelLoaded;
+    }
+
+    private void OnDestroy()
+    {
+        LevelManager.OnLevelLoaded -= HandleLevelLoaded;
+    }
+
+    private void HandleLevelLoaded(LevelDataSO data)
+    {
+        currentLevelData = data;
     }
 
     private void Update()
@@ -32,17 +49,13 @@ public class Timer : MonoBehaviour
     {
         if (isRunning) return; 
 
-        if (levelDataLoader == null)
+        if (currentLevelData == null)
         {
-            Debug.LogError("Timer: levelDataLoader is NULL — Did you assign it in the Inspector?");
+            Debug.LogError("Timer: currentLevelData is NULL — Make sure a level is loaded before starting the timer.");
             return;
         }
 
-        seconds = levelDataLoader.GetCurrentLevelData().gameDuration;
-        if (levelDataLoader == null)
-        {
-            Debug.LogError("Timer: levelDataLoader is NULL");
-        }
+        seconds = currentLevelData.gameDuration;
         
         isRunning = true;
 

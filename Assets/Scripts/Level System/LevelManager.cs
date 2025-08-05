@@ -3,6 +3,7 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
+    public static event System.Action<LevelDataSO> OnLevelLoaded; // New event
     public LevelDataSO CurrentLevelData { get; private set; }
 
     [Header("Level Seçimi (1 ile başlar)")]
@@ -36,6 +37,9 @@ public class LevelManager : MonoBehaviour
 
             
             CurrentLevelData.spawninterval = 3f;
+            
+            // Notify subscribers that a new level has been loaded
+            OnLevelLoaded?.Invoke(CurrentLevelData);
         }
         else
         {
