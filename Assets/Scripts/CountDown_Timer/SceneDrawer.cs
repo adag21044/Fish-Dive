@@ -9,13 +9,21 @@ public class SceneDrawer : MonoBehaviour
     public event Action OnSceneDrawn;
     [SerializeField] private Timer timer;
 
-    private void Start()
+    private void OnEnable()
     {
         DrawScene();
         OnSceneDrawn += ShowHearts;
         OnSceneDrawn += ShowMegaphone;
-        OnSceneDrawn += () => timer.SetTimerActive();
-        OnSceneDrawn += timer.StartTimer; 
+        OnSceneDrawn += () => Timer.Instance.SetTimerActive();
+        OnSceneDrawn += Timer.Instance.StartTimer; 
+    }
+
+    private void OnDisable()
+    {
+        OnSceneDrawn -= ShowHearts;
+        OnSceneDrawn -= ShowMegaphone;
+        OnSceneDrawn -= () => timer.SetTimerActive();
+        OnSceneDrawn -= timer.StartTimer; 
     }
 
     private void DrawScene()

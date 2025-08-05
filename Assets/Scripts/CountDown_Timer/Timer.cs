@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
+    public static Timer Instance { get; private set; }
     private float seconds;
     [SerializeField] private LevelDataLoader levelDataLoader;
     [SerializeField] private TimerView timerView;
@@ -10,6 +11,13 @@ public class Timer : MonoBehaviour
     private void Awake()
     {
         Debug.Log($"[Timer] Awake called. levelDataLoader is null? {levelDataLoader == null}");
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // varsa fazlasını yok et
+            return;
+        }
+
+        Instance = this;
     }
 
     private void Update()
