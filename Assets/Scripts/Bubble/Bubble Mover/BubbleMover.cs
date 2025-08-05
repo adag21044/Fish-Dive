@@ -2,24 +2,15 @@ using UnityEngine;
 
 public class BubbleMover : MonoBehaviour
 {
-    [SerializeField] private LevelDatabase levelData;
     [SerializeField] private float speed;
-    [SerializeField] private LevelDataLoader levelDataLoader;
 
     private void Awake()
     {
-        FindLevelDataLoader();
-
-        if (levelDataLoader == null)
+        // Initialize speed with the current level data if already loaded
+        if (LevelManager.Instance != null && LevelManager.Instance.CurrentLevelData != null)
         {
-            Debug.LogError("LevelDataLoader bulunamadı!");
-            return;
+            speed = LevelManager.Instance.CurrentLevelData.speed;
         }
-
-        SetSpeed(levelData.levels[levelDataLoader.GetLevelIndex()].speed);
-
-        Debug.Log($"Loaded level data for level {levelDataLoader.GetLevelIndex()} with speed: {speed}");
-        Debug.Log($"Bubble speed set to: {speed}");
     }
 
     private void Update()
@@ -27,38 +18,25 @@ public class BubbleMover : MonoBehaviour
         MoveBubble(Vector3.up, speed);
     }
 
-    private void MoveBubble(Vector3 direction, float speed)
+    private void MoveBubble(Vector3 direction, float currentSpeed)
     {
         // Move the bubble in the specified direction at the given speed
-        transform.position += direction * speed * Time.deltaTime;
-    }
-
-    private void FindLevelDataLoader()
-    {
-        if (levelDataLoader == null)
-        {
-            levelDataLoader = FindFirstObjectByType<LevelDataLoader>();
-        }
-    }
-
-    private void SetSpeed(float newSpeed)
-    {
-        speed = newSpeed;
+        transform.position += direction * currentSpeed * Time.deltaTime;
     }
 
     private void OnEnable()
     {
-        LevelDataLoader.OnLevelDataChanged += UpdateSpeedFromLevelData;
+        LevelManager.OnLevelLoaded += UpdateSpeedFromLevelData;
     }
 
     private void OnDisable()
     {
-        LevelDataLoader.OnLevelDataChanged -= UpdateSpeedFromLevelData;
+        LevelManager.OnLevelLoaded -= UpdateSpeedFromLevelData;
     }
 
-    private void UpdateSpeedFromLevelData()
+    private void UpdateSpeedFromLevelData(LevelDataSO data)
     {
-        speed = levelData.levels[levelDataLoader.GetLevelIndex()].speed;
+        speed = data.speed;
         Debug.Log($"[BubbleMover] Speed updated from level data: {speed}");
     }
 }
