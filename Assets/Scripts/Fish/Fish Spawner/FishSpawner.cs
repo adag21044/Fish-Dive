@@ -6,18 +6,10 @@ public class FishSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject fish;
     [SerializeField] Transform spawnPoint;
-    [SerializeField] private Countdown countdown;
-    public event Action OnFishSpawned;
+    public event Action OnFishSpawned; // 🎯 trigger when fish spawn
     [SerializeField] private Timer timer;
-    private void Awake()
-    {
-        if (countdown != null)
-        {
-            countdown.OnCountdownFinished += SpawnFish;
-        }
-    }
-
-    private void SpawnFish()
+    
+    public void SpawnFish() // artık dışarıdan çağrılabilir
     {
         if (fish != null && spawnPoint != null)
         {
@@ -25,24 +17,21 @@ public class FishSpawner : MonoBehaviour
             Debug.Log("Fish spawned at: " + spawnPoint.position);
 
             SpriteRenderer renderer = fish.GetComponent<SpriteRenderer>();
-
             if (renderer != null)
             {
                 Color color = renderer.color;
-                color.a = 0f; // Ensure fish is fully invisible at start
+                color.a = 0f;
                 renderer.color = color;
 
                 renderer.DOFade(1f, 1f).SetEase(Ease.OutQuad).OnComplete(() =>
                 {
-                    OnFishSpawned?.Invoke(); // 🎯 Event trigged
+                    OnFishSpawned?.Invoke(); // 🎯 balık animasyonu bitince event
                 });
             }
             else
             {
                 OnFishSpawned?.Invoke(); // fallback
             }
-
-            Debug.Log("Fish spawned at: " + spawnPoint.position);
         }
         else
         {
@@ -51,12 +40,9 @@ public class FishSpawner : MonoBehaviour
 
         if (timer != null)
         {
-            timer.StartTimer();
+            timer.StartTimer(); // ✅ oyun süresi başlasın
             Debug.Log("Timer started after fish spawn.");
         }
-        if (timer == null)
-        {
-            Debug.LogError("Timer is not assigned in the FishSpawner.");
-        }
     }
+
 }

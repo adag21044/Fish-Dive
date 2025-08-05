@@ -6,12 +6,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     [SerializeField] private FishSpawner fishSpawner;
     [SerializeField] private NumberAnnouncer numberAnnouncer;
+    [SerializeField] private Countdown countdown;
 
-    
     private void Awake()
     {
-        fishSpawner = FindFirstObjectByType<FishSpawner>();
-        numberAnnouncer = FindFirstObjectByType<NumberAnnouncer>();
         if (Instance == null)
         {
             Instance = this;
@@ -20,19 +18,43 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
-    }
 
-    private void Start() // ✅ Burada bağla
-    {
-        if (fishSpawner != null && numberAnnouncer != null)
+        
+        if (fishSpawner == null)
+            fishSpawner = FindFirstObjectByType<FishSpawner>();
+        if (numberAnnouncer == null)
+            numberAnnouncer = FindFirstObjectByType<NumberAnnouncer>();
+        if (countdown == null)
+            countdown = FindFirstObjectByType<Countdown>();
+
+        if (countdown != null)
         {
-            fishSpawner.OnFishSpawned += numberAnnouncer.StartAnnouncing;
+            countdown.OnCountdownFinished += fishSpawner.SpawnFish; // ✅ countdown bitince fish spawn
         }
         else
         {
-            Debug.LogError("GameManager: FishSpawner or NumberAnnouncer not assigned!");
+            Debug.LogError("Countdown not assigned in GameManager!");
         }
+    }
+
+    private void Start()
+    {
+        if (fishSpawner != null )
+        {
+            fishSpawner.OnFishSpawned += OnFishSpawned;
+        }
+        else
+        {
+            Debug.LogError("FishSpawner or NumberAnnouncer not assigned!");
+        }
+    }
+
+    private void OnFishSpawned()
+    {
+        Debug.Log("[GameManager] Fish spawn tamamlandı. Sayı duyuruluyor...");
+        numberAnnouncer?.StartAnnouncing(); // 🔊 sayı duyurusu başlasın
     }
 
     private void OnDisable()
@@ -41,8 +63,12 @@ public class GameManager : MonoBehaviour
         {
             fishSpawner.OnFishSpawned -= numberAnnouncer.StartAnnouncing;
         }
-    }
 
+        if (countdown != null)
+        {
+            countdown.OnCountdownFinished -= fishSpawner.SpawnFish;
+        }
+    }
 
     public static void StartGame()
     {
@@ -51,11 +77,6 @@ public class GameManager : MonoBehaviour
 
     private void EndGame()
     {
-
-    }
-
-    private void LoadGame()
-    {
-        // Load game logic here
+        // implement end logic
     }
 }

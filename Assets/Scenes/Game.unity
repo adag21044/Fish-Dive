@@ -548,6 +548,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishSpawner: {fileID: 932978984}
   numberAnnouncer: {fileID: 971988877}
+  countdown: {fileID: 1182030386}
 --- !u!4 &143612502
 Transform:
   m_ObjectHideFlags: 0
@@ -1916,7 +1917,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fish: {fileID: 1797458621}
   spawnPoint: {fileID: 1799830907}
-  countdown: {fileID: 1182030386}
   timer: {fileID: 444929119}
 --- !u!4 &932978985
 Transform:
