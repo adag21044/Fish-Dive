@@ -8,10 +8,11 @@ public class AnswerObserver : MonoBehaviour
     [SerializeField] private FishController fishController;
     [SerializeField] private int correctAnswerCount = 0;
     [SerializeField] private NumberAnnouncer numberAnnouncer;
+    [SerializeField] private AudioSource wrongAnswerSound;
     public static event Action<int> OnRightAnswerSelected;
     private float levelDuration = 90f;
     private float timer = 0f;
-    
+
 
     private void Update()
     {
@@ -20,7 +21,7 @@ public class AnswerObserver : MonoBehaviour
         if (timer >= levelDuration)
         {
             CheckLevelCompletion();
-        }     
+        }
     }
 
     private void RunTimer()
@@ -79,7 +80,7 @@ public class AnswerObserver : MonoBehaviour
         else
         {
             Debug.Log("Incorrect number selected: " + bubbleNumberSelector.SelectedBubbleNumber);
-
+            PlayWrongAnswerSound();
             // Handle incorrect selection logic here
             heartController.DestroyNextHeart();
             if (fishController?.fishAnimator != null)
@@ -92,5 +93,13 @@ public class AnswerObserver : MonoBehaviour
             }
         }
         numberAnnouncer?.StartAnnouncing();
+    }
+
+    private void PlayWrongAnswerSound()
+    {
+        if (wrongAnswerSound != null)
+        {
+            wrongAnswerSound.Play();
+        }
     }
 }
