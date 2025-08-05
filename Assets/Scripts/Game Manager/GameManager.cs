@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 
         if (countdown != null)
         {
-            countdown.OnCountdownFinished += fishSpawner.SpawnFish; // ✅ countdown bitince fish spawn
+            countdown.OnCountdownFinished += fishSpawner.SpawnFish; // ✅ fish spawn when countdown finishes
         }
         else
         {
