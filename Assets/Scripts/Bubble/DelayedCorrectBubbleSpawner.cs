@@ -7,8 +7,7 @@ public class DelayedCorrectBubbleSpawner : MonoBehaviour
 {
     [SerializeField] private BubbleSpawner bubbleSpawner;
     [SerializeField] private NumberAnnouncer numberAnnouncer;
-    [SerializeField] private int delayCount = 3; // change this according json file
-
+    [SerializeField] private int delayCount = 3; 
     private int delayCounter = 0;
     private bool correctBubbleSpawned = false;
 
@@ -29,7 +28,6 @@ public class DelayedCorrectBubbleSpawner : MonoBehaviour
 
     private void Update()
     {
-        // Eğer doğru sayı zaten ekrandaysa bir şey yapma
         if (IsCorrectBubbleAlreadySpawned())
         {
             correctBubbleSpawned = true;
@@ -46,14 +44,13 @@ public class DelayedCorrectBubbleSpawner : MonoBehaviour
     {
         if (correctBubbleSpawned) return;
 
-        // Ekranda varsa bir şey yapma
+
         if (IsCorrectBubbleAlreadySpawned())
         {
             correctBubbleSpawned = true;
             return;
         }
 
-        // Sayım başlasın
         delayCounter++;
 
         if (delayCounter >= delayCount)
@@ -68,14 +65,14 @@ public class DelayedCorrectBubbleSpawner : MonoBehaviour
     {
         bubbleSpawner.spawnedBubbles.RemoveAll(b => b == null);
 
-        // Geçici olarak silinecek objeleri toplayalım
+        
         List<GameObject> toRemove = new List<GameObject>();
 
         foreach (GameObject bubble in bubbleSpawner.spawnedBubbles)
         {
             if (bubble == null)
             {
-                toRemove.Add(bubble); // destroy edilmiş obje
+                toRemove.Add(bubble); 
                 continue;
             }
 
@@ -86,7 +83,7 @@ public class DelayedCorrectBubbleSpawner : MonoBehaviour
             }
         }
 
-        // Temizle
+        
         foreach (GameObject b in toRemove)
         {
             bubbleSpawner.spawnedBubbles.Remove(b);
@@ -138,7 +135,7 @@ public class DelayedCorrectBubbleSpawner : MonoBehaviour
             if (IsSafe(pos)) return pos;
         }
 
-        return Vector2.zero; // başarısız
+        return Vector2.zero; 
     }
 
     private bool IsSafe(Vector2 pos)

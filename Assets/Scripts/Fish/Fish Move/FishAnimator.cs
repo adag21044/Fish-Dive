@@ -61,7 +61,6 @@ public class FishAnimator : MonoBehaviour
     {
         Debug.Log("Playing shake animation on fish.");
 
-
         transform.DOKill();
 
         transform.DOShakeRotation(

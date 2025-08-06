@@ -13,7 +13,6 @@ public class AnswerObserver : MonoBehaviour
     private const float levelDuration = 90f;
     private float timer = 0f;
 
-
     private void Update()
     {
         RunTimer();
@@ -45,14 +44,13 @@ public class AnswerObserver : MonoBehaviour
         {
             Debug.Log("LEVEL PASSED! Loading next level...");
             LevelManager.Instance.LoadLevel(LevelManager.Instance.CurrentLevelData.level + 1);
-            // Sahneyi yeniden başlatabilirsin ya da bir animasyon geçişi koyabilirsin
+            
             UnityEngine.SceneManagement.SceneManager.LoadScene(
                 UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
         }
         else
         {
             Debug.Log("Level failed or repeated.");
-            // Retry logic 
         }
     }
 

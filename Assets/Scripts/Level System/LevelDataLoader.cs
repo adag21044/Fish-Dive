@@ -14,7 +14,6 @@ public class LevelDataLoader : MonoBehaviour
         SetLevelOne(); // Set isLevelOne to true for level 1
     }
 
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -81,7 +80,6 @@ public class LevelDataLoader : MonoBehaviour
     }
 
     public LevelDataSO GetCurrentLevelData() => currentLevelData;
-
     public int GetLevelIndex() => currentLevelData != null ? currentLevelData.level : 0;
     public int GetGameDuration => currentLevelData != null ? (int)currentLevelData.gameDuration : 0;
     private void SetLevelOne() => isLevelOne = true;

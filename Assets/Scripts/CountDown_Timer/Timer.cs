@@ -16,7 +16,6 @@ public class Timer : MonoBehaviour
             Destroy(gameObject); // varsa fazlasını yok et
             return;
         }
-
         Instance = this;
     }
 

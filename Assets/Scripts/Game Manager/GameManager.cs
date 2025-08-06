@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         
         if (fishSpawner == null)
             fishSpawner = FindFirstObjectByType<FishSpawner>();

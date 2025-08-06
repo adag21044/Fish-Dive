@@ -14,13 +14,6 @@ public class MegaphoneAnimator : MonoBehaviour
     [SerializeField] private float arrowFadeDuration = 0.6f;
     [SerializeField] private float arrowDelay = 0.15f;
 
-    //private Sequence[] arrowSequences;
-
-    private void Awake()
-    {
-        //arrowSequences = new Sequence[arrows.Length];   
-    }
-
     public void PlayMegaphoneAnimation()
     {
         Debug.Log("Playing megaphone animation");

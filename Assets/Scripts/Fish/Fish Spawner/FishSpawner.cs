@@ -44,5 +44,4 @@ public class FishSpawner : MonoBehaviour
             Debug.Log("Timer started after fish spawn.");
         }
     }
-
 }

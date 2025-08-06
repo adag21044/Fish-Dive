@@ -8,7 +8,6 @@ public class HandHint : MonoBehaviour
     private Tween handTween;
     private bool hasHandShown = false;
 
-
     private void Update()
     {
         if (LevelManager.Instance.CurrentLevelData.level != 1)
