@@ -4,13 +4,12 @@ public class TimerController : MonoBehaviour
 {
     public static TimerController Instance { get; private set; }
     private float seconds;
-    [SerializeField] private LevelDataLoader levelDataLoader;
+
     [SerializeField] private TimerView timerView;
     private bool isRunning = false;
 
     private void Awake()
     {
-        Debug.Log($"[Timer] Awake called. levelDataLoader is null? {levelDataLoader == null}");
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject); // varsa fazlasını yok et
@@ -31,17 +30,8 @@ public class TimerController : MonoBehaviour
     {
         if (isRunning) return; 
 
-        if (levelDataLoader == null)
-        {
-            Debug.LogError("Timer: levelDataLoader is NULL — Did you assign it in the Inspector?");
-            return;
-        }
 
-        seconds = levelDataLoader.GetCurrentLevelData().gameDuration;
-        if (levelDataLoader == null)
-        {
-            Debug.LogError("Timer: levelDataLoader is NULL");
-        }
+        seconds = LevelDataLoader.Instance.GetCurrentLevelData().gameDuration;
         
         isRunning = true;
 

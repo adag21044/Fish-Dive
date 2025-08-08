@@ -3,6 +3,7 @@ using System;
 
 public class LevelDataLoader : MonoBehaviour
 {
+    public static LevelDataLoader Instance { get; private set; }
     public LevelDatabase levelDataBase;
     private LevelDataSO currentLevelData;
     public static bool isLevelOne = false;
