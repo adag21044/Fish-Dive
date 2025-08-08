@@ -5,7 +5,6 @@ public class HeartController : MonoBehaviour
     [SerializeField] private HeartDestroyer[] heartDestroyers;
     private int nextIndex = 0;
 
-    // Destroy by explicit index (kept as is)
     public void DestroyHeart(int index)
     {
         if (index < 0 || index >= heartDestroyers.Length)
