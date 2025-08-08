@@ -564,6 +564,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &216630941
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 216630942}
+  m_Layer: 0
+  m_Name: ---Game Manager---
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &216630942
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216630941}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.826347, y: -8.090255, z: -10.041035}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &240848052
 GameObject:
   m_ObjectHideFlags: 0
@@ -2149,6 +2180,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1044368594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1044368595}
+  m_Layer: 0
+  m_Name: ---Game Manager---
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1044368595
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044368594}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.826347, y: -8.090255, z: -10.041035}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1047815818
 GameObject:
   m_ObjectHideFlags: 0
@@ -3061,14 +3123,12 @@ MonoBehaviour:
   - {fileID: 667443081}
   - {fileID: 443788099}
   - {fileID: 822904600}
-  punchScale: 0.2
-  punchDuration: 0.3
-  arrowScaleTo: 0.75
-  arrowFadeDuration: 0.6
-  arrowDelay: 0.15
-  scaleUpTo: 1.15
+  baseScale: 0.48
+  maxScale: 0.75
   punchTime: 0.15
+  arrowScaleTo: 0.75
   arrowTime: 0.25
+  arrowDelay: 0.15
 --- !u!1 &1507447213
 GameObject:
   m_ObjectHideFlags: 0
@@ -4605,8 +4665,10 @@ SceneRoots:
   - {fileID: 1141681533}
   - {fileID: 1182030387}
   - {fileID: 334678656}
+  - {fileID: 216630942}
+  - {fileID: 143612502}
+  - {fileID: 1044368595}
   - {fileID: 1999008762}
   - {fileID: 1584362893}
   - {fileID: 1871425554}
   - {fileID: 1605567748}
-  - {fileID: 143612502}
