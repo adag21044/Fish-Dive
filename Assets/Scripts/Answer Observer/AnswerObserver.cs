@@ -9,7 +9,6 @@ public class AnswerObserver : MonoBehaviour
     [SerializeField] private int correctAnswerCount = 0;
     [SerializeField] private NumberAnnouncer numberAnnouncer;
     [SerializeField] private AudioSource wrongAnswerSound;
-    public static event Action<int> OnRightAnswerSelected;
     private const float levelDuration = 90f;
     private float timer = 0f;
 

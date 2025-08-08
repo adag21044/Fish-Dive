@@ -20,14 +20,22 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
-        if (fishSpawner == null)
-            fishSpawner = FindFirstObjectByType<FishSpawner>();
-        if (numberAnnouncer == null)
-            numberAnnouncer = FindFirstObjectByType<NumberAnnouncer>();
-        if (countdown == null)
-            countdown = FindFirstObjectByType<Countdown>();
 
+        if (fishSpawner == null)
+        {
+            Debug.LogError("FishSpawner not assigned in GameManager!");  
+        }
+
+        if (numberAnnouncer == null)
+        {
+           Debug.LogError("NumberAnnouncer not assigned in GameManager!"); 
+        }
+
+        if (countdown == null)
+        {
+            Debug.LogError("Countdown not assigned in GameManager!");
+        }
+        
         if (countdown != null)
         {
             countdown.OnCountdownFinished += fishSpawner.SpawnFish; // ✅ fish spawn when countdown finishes
