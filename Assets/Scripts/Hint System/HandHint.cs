@@ -4,7 +4,6 @@ using UnityEngine;
 public class HandHint : MonoBehaviour
 {
     [SerializeField] private GameObject handObject; // Reference to the hand object
-    [SerializeField] private FishMove fishMove; // Reference to the FishMove script
     private Tween handTween;
     private bool hasHandShown = false;
 
@@ -15,16 +14,16 @@ public class HandHint : MonoBehaviour
             HideHandHint();
             return;
         }
-        if (fishMove.IsTouched && !hasHandShown)
+        if (FishMove.Instance.IsTouched && !hasHandShown)
         {
             ShowHandHint();
         }
         else
-        if (fishMove.IsTouched)
+        if (FishMove.Instance.IsTouched)
         {
             HideHandHint();
         }
-        else if (!fishMove.IsTouched && !hasHandShown)
+        else if (!FishMove.Instance.IsTouched && !hasHandShown)
         {
             ShowHandHint();
             hasHandShown = true;

@@ -18,6 +18,7 @@ public class FishMove : MonoBehaviour
     public bool IsTouched => isTouched;
 
     private Rigidbody2D rb;
+    public static FishMove Instance { get; private set; }
 
     private void Awake()
     {
