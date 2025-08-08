@@ -6,7 +6,7 @@ public class NumberAnnouncer : MonoBehaviour
 {
     [SerializeField] private AudioClip[] numberClips; // 0 zero, 1 one, 2 two, etc.
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private MegaphoneAnimator megaphoneAnimator;
+    
     [SerializeField] public static int announcedNumber = 1;
     public static event Action OnNumberAnnounced;
     [SerializeField] private float announceInterval = 5f; // Time interval between announcements
@@ -56,8 +56,7 @@ public class NumberAnnouncer : MonoBehaviour
         tempAudioSource.clip = clip;
         tempAudioSource.Play();
 
-        // Trigger megaphone animation
-        megaphoneAnimator.PlayMegaphoneAnimation();
+        
 
         // Stop megaphone after sound
         float duration = clip.length;
@@ -70,7 +69,7 @@ public class NumberAnnouncer : MonoBehaviour
 
     private void StopMegaphone()
     {
-        megaphoneAnimator?.StopMegaphone();
+        
     }
     
     private int GenerateRandomNumber()
