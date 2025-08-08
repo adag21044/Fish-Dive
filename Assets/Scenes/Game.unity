@@ -3390,7 +3390,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handObject: {fileID: 975387814}
-  fishMove: {fileID: 1797458624}
 --- !u!1 &1584362892
 GameObject:
   m_ObjectHideFlags: 0

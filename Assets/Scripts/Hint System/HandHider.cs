@@ -1,11 +1,11 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class HandHider : MonoBehaviour
 {
     [SerializeField] private GameObject handObject;
-    [SerializeField] private FishMove fishMove;
-
+    
     private Tween hintTween;
     private bool isCountDownFinished = false;
     private bool hasShown = false;
@@ -13,36 +13,42 @@ public class HandHider : MonoBehaviour
     private void Awake()
     {
         handObject.SetActive(false);
-        
         Countdown.Instance.OnCountdownFinished += HandleCountdownFinished;
+    }
+
+    private void OnEnable()
+    {
+        FishMove.OnFirstTouchDetected += HandleFirstTouch;
+    }
+
+    private void OnDisable()
+    {
+        FishMove.OnFirstTouchDetected -= HandleFirstTouch;
     }
 
     private void Update()
     {
-        
+        if (!isCountDownFinished || hasShown)
+            return;
+
         if (LevelManager.Instance.CurrentLevelData.level != 1)
         {
             HideHandHint();
             return;
         }
 
-        if (!isCountDownFinished || hasShown)
-            return;
-
-        if (!fishMove.IsTouched)
-        {
-            ShowHandHint();
-        }
-        else
-        {
-            HideHandHint();
-            hasShown = true; 
-        }
+        ShowHandHint();
     }
 
     private void HandleCountdownFinished()
     {
         isCountDownFinished = true;
+    }
+
+    private void HandleFirstTouch()
+    {
+        HideHandHint();
+        hasShown = true;
     }
 
     private void ShowHandHint()

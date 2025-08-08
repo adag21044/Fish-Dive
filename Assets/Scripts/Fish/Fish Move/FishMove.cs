@@ -5,7 +5,8 @@ public class FishMove : MonoBehaviour
 {
     public event Action OnStartMoving;
     public event Action OnStopMoving;
-    
+    public static event Action OnFirstTouchDetected;
+
     private Vector2 touchStartPosition;
     private Vector2 direction;
     private bool isDragging = false;
@@ -35,6 +36,9 @@ public class FishMove : MonoBehaviour
             isTouched = true;
             touchStartPosition = Input.mousePosition;
             isDragging = true;
+
+            // trigger event
+            OnFirstTouchDetected?.Invoke();
         }
         else if (Input.GetMouseButton(0) && isDragging)
         {
