@@ -30,6 +30,17 @@ public class TimerController : MonoBehaviour
     {
         if (isRunning) return; 
 
+        if (LevelDataLoader.Instance == null)
+        {
+            Debug.LogError("TimerController: LevelDataLoader.Instance is NULL");
+            return;
+        }
+
+        if (LevelDataLoader.Instance.GetCurrentLevelData() == null)
+        {
+            Debug.LogError("TimerController: LevelDataLoader.Instance.GetCurrentLevelData() is NULL");
+            return;
+        }
 
         seconds = LevelDataLoader.Instance.GetCurrentLevelData().gameDuration;
         

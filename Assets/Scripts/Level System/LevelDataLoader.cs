@@ -9,6 +9,12 @@ public class LevelDataLoader : MonoBehaviour
     public static bool isLevelOne = false;
     public static event Action OnLevelDataChanged;
 
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
+    
     private void Start()
     {
         LoadLevelData(1); // default to level 1
