@@ -7,23 +7,22 @@ public class SceneController : MonoBehaviour
     [SerializeField] private GameObject[] sceneObjects;
     [SerializeField] private GameObject megaphone;
     public event Action OnSceneDrawn;
-    [SerializeField] private Timer timer;
 
     private void OnEnable()
     {
         DrawScene();
         OnSceneDrawn += ShowHearts;
         OnSceneDrawn += ShowMegaphone;
-        OnSceneDrawn += () => Timer.Instance.SetTimerActive();
-        OnSceneDrawn += Timer.Instance.StartTimer; 
+        OnSceneDrawn += () => TimerController.Instance.SetTimerActive();
+        OnSceneDrawn += TimerController.Instance.StartTimer; 
     }
 
     private void OnDisable()
     {
         OnSceneDrawn -= ShowHearts;
         OnSceneDrawn -= ShowMegaphone;
-        OnSceneDrawn -= () => Timer.Instance.SetTimerActive();
-        OnSceneDrawn -= Timer.Instance.StartTimer; 
+        OnSceneDrawn -= () => TimerController.Instance.SetTimerActive();
+        OnSceneDrawn -= TimerController.Instance.StartTimer; 
     }
 
     private void DrawScene()

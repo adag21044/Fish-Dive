@@ -7,7 +7,7 @@ public class FishSpawner : MonoBehaviour
     [SerializeField] private GameObject fish;
     [SerializeField] Transform spawnPoint;
     public event Action OnFishSpawned; // 🎯 trigger when fish spawn
-    [SerializeField] private Timer timer;
+    [SerializeField] private TimerController timer;
     
     public void SpawnFish() // artık dışarıdan çağrılabilir
     {

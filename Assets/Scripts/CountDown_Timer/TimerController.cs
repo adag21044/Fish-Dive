@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Timer : MonoBehaviour
+public class TimerController : MonoBehaviour
 {
-    public static Timer Instance { get; private set; }
+    public static TimerController Instance { get; private set; }
     private float seconds;
     [SerializeField] private LevelDataLoader levelDataLoader;
     [SerializeField] private TimerView timerView;
