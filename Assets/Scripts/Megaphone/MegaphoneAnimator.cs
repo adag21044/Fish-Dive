@@ -1,43 +1,71 @@
-using System;
-using DG.Tweening;
 using UnityEngine;
+using DG.Tweening;
 
 public class MegaphoneAnimator : MonoBehaviour
 {
+    [Header("Scene References")]
     [SerializeField] private Transform megaphone;
-    [SerializeField] private Transform[] arrows; // to visualize sound
+    [SerializeField] private Transform[] arrows;
 
-    [SerializeField] private float punchScale = 0.2f;
-    [SerializeField] private float punchDuration = 0.3f;
+    [Header("Megaphone")]
+    [SerializeField] private float baseScale   = 0.48f;   // Original size
+    [SerializeField] private float maxScale    = 0.75f;   // Target size during punch
+    [SerializeField] private float punchTime   = 0.15f;   // Grow / shrink time
 
-    [SerializeField] private float arrowScaleTo = 1.5f;
-    [SerializeField] private float arrowFadeDuration = 0.6f;
-    [SerializeField] private float arrowDelay = 0.15f;
+    [Header("Arrows")]
+    [SerializeField] private float arrowScaleTo = 0.75f;
+    [SerializeField] private float arrowTime    = 0.25f;
+    [SerializeField] private float arrowDelay   = 0.15f;
 
-    public void PlayMegaphoneAnimation()
+    private void Awake()
     {
-        Debug.Log("Playing megaphone animation");
+        // Ensure megaphone starts at its base size
+        megaphone.localScale = Vector3.one * baseScale;
+    }
 
+    private void OnEnable()
+    {
+        NumberAnnouncer.OnNumberAnnounced += PlayMegaphoneAnimation;
+    }
+
+    private void OnDisable()
+    {
+        NumberAnnouncer.OnNumberAnnounced -= PlayMegaphoneAnimation;
+    }
+
+    /// <summary>
+    /// Runs whenever a number is announced: punch-scale megaphone, flash arrows.
+    /// </summary>
+    private void PlayMegaphoneAnimation()
+    {
+        // 1) Arrow flash
         foreach (Transform arrow in arrows)
         {
             arrow.gameObject.SetActive(true);
+            arrow.localScale = Vector3.zero;
+
+            arrow.DOScale(arrowScaleTo, arrowTime)
+                 .SetDelay(arrowDelay)
+                 .SetEase(Ease.OutSine)
+                 .OnComplete(() => arrow.DOScale(0f, arrowTime)
+                 .SetEase(Ease.InSine));
         }
 
-        // Play animation on megaphone
-        megaphone.localScale = Vector3.one;
-        megaphone.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.1f)
-                .SetEase(Ease.OutQuad)
-                .OnComplete(() =>
-                {
-                    megaphone.DOScale(new Vector3(0.48f, 0.48f, 0.48f), 0.1f);
-                });
+        // 2) Megaphone punch (baseScale ➜ maxScale ➜ baseScale)
+        Sequence seq = DOTween.Sequence();
+        seq.Append(megaphone.DOScale(Vector3.one * maxScale, punchTime).SetEase(Ease.OutQuad));
+        seq.Append(megaphone.DOScale(Vector3.one * baseScale, punchTime).SetEase(Ease.InQuad));
+        seq.OnComplete(ResetMegaphone);
     }
 
-    public void StopMegaphone()
+    /// <summary>
+    /// Hides arrows and guarantees the megaphone is at base size.
+    /// </summary>
+    private void ResetMegaphone()
     {
+        megaphone.localScale = Vector3.one * baseScale;
+
         foreach (Transform arrow in arrows)
-        {
             arrow.gameObject.SetActive(false);
-        }
     }
-} 
+}

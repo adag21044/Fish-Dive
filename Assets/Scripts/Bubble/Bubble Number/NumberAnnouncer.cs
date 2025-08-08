@@ -13,7 +13,6 @@ public class NumberAnnouncer : MonoBehaviour
     private float announceTimer;
     private bool isRunning = false;
 
-
     private void Update()
     {
         // for only testing purposes

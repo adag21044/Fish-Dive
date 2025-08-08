@@ -882,7 +882,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46d5d34aa97cb8b40af6d2e2f9044be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelDataLoader: {fileID: 865405933}
   timerView: {fileID: 542935944}
 --- !u!4 &444929120
 Transform:
@@ -2016,7 +2015,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 69f1ba1974701af4d916e9659bde549f, type: 3}
   - {fileID: 8300000, guid: 7f8bc88d517a1a34aa62b763b5333211, type: 3}
   audioSource: {fileID: 1231145122}
-  megaphoneAnimator: {fileID: 1500141171}
   announceInterval: 5
 --- !u!4 &971988878
 Transform:
@@ -2624,7 +2622,6 @@ MonoBehaviour:
   - {fileID: 1818616831}
   - {fileID: 95813176}
   megaphone: {fileID: 1500141168}
-  timer: {fileID: 444929119}
 --- !u!4 &1273880008
 Transform:
   m_ObjectHideFlags: 0
@@ -3066,9 +3063,12 @@ MonoBehaviour:
   - {fileID: 822904600}
   punchScale: 0.2
   punchDuration: 0.3
-  arrowScaleTo: 1.5
+  arrowScaleTo: 0.75
   arrowFadeDuration: 0.6
   arrowDelay: 0.15
+  scaleUpTo: 1.15
+  punchTime: 0.15
+  arrowTime: 0.25
 --- !u!1 &1507447213
 GameObject:
   m_ObjectHideFlags: 0
