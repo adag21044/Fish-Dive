@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int wrongsForRetry = 3; // after 3 wrong answers, reload level
 
     private bool pendingRestart = false; // set before reloading so we can auto-start on the fresh scene
+    private bool isWired = false;                             // guard to avoid double subscriptions
+
 
 
     private void Awake()
@@ -48,14 +50,19 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            SceneManager.sceneLoaded += OnSceneLoaded; // critical for re-binding after reload
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+            return;
         }
 
-        // Initial bind for the first scene
+        // Initial binding on the very first scene
         RebindReferences();
         Wire();
 
-        // Level target from LevelManager
+        // Pull required target from LevelManager if available
         if (LevelManager.Instance != null && LevelManager.Instance.CurrentLevelData != null)
             requiredCorrect = LevelManager.Instance.CurrentLevelData.optimumquestioncount;
         else
@@ -70,56 +77,51 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        // Flow wiring
-        if (countdown && fishSpawner)
-            countdown.OnCountdownFinished += fishSpawner.SpawnFish;
 
-        if (fishSpawner)
-            fishSpawner.OnFishSpawned += HandleFishSpawned;
-
-        // Gameplay feedback
-        AnswerObserver.OnCorrectAnswer += HandleCorrectAnswer;
-        AnswerObserver.OnWrongAnswer += HandleWrongAnswer;
     }
 
     private void OnDisable()
     {
-        if (countdown && fishSpawner)
-            countdown.OnCountdownFinished -= fishSpawner.SpawnFish;
 
-        if (fishSpawner)
-            fishSpawner.OnFishSpawned -= HandleFishSpawned;
-
-        AnswerObserver.OnCorrectAnswer -= HandleCorrectAnswer;
-        AnswerObserver.OnWrongAnswer -= HandleWrongAnswer;
     }
 
     private void RebindReferences()
     {
-        if (!sceneController)   sceneController   = FindFirstObjectByType<SceneController>(FindObjectsInactive.Include);
-        if (!countdown)         countdown         = FindFirstObjectByType<Countdown>(FindObjectsInactive.Include);
-        if (!timerController)   timerController   = FindFirstObjectByType<TimerController>(FindObjectsInactive.Include);
-        if (!fishSpawner)       fishSpawner       = FindFirstObjectByType<FishSpawner>(FindObjectsInactive.Include);
-        if (!bubbleSpawner)     bubbleSpawner     = FindFirstObjectByType<BubbleSpawner>(FindObjectsInactive.Include);
-        if (!numberAnnouncer)   numberAnnouncer   = FindFirstObjectByType<NumberAnnouncer>(FindObjectsInactive.Include);
-        if (!answerObserver)    answerObserver    = FindFirstObjectByType<AnswerObserver>(FindObjectsInactive.Include);
-        if (!heartController)   heartController   = FindFirstObjectByType<HeartController>(FindObjectsInactive.Include);
+        if (!sceneController) sceneController   = FindFirstObjectByType<SceneController>(FindObjectsInactive.Include);
+        if (!countdown)       countdown         = FindFirstObjectByType<Countdown>(FindObjectsInactive.Include);
+        if (!timerController) timerController   = FindFirstObjectByType<TimerController>(FindObjectsInactive.Include);
+        if (!fishSpawner)     fishSpawner       = FindFirstObjectByType<FishSpawner>(FindObjectsInactive.Include);
+        if (!bubbleSpawner)   bubbleSpawner     = FindFirstObjectByType<BubbleSpawner>(FindObjectsInactive.Include);
+        if (!numberAnnouncer) numberAnnouncer   = FindFirstObjectByType<NumberAnnouncer>(FindObjectsInactive.Include);
+        if (!answerObserver)  answerObserver    = FindFirstObjectByType<AnswerObserver>(FindObjectsInactive.Include);
+        if (!heartController) heartController   = FindFirstObjectByType<HeartController>(FindObjectsInactive.Include);
+
+        // Refresh requiredCorrect on scene rebind if LevelManager is present
+        if (LevelManager.Instance != null && LevelManager.Instance.CurrentLevelData != null)
+            requiredCorrect = LevelManager.Instance.CurrentLevelData.optimumquestioncount;
     }
 
     private void Wire()
     {
+        if (isWired) return; // guard against double subscription
+
         if (countdown && fishSpawner)
             countdown.OnCountdownFinished += fishSpawner.SpawnFish;
 
         if (fishSpawner)
             fishSpawner.OnFishSpawned += HandleFishSpawned;
 
+        // Global gameplay events
         AnswerObserver.OnCorrectAnswer += HandleCorrectAnswer;
         AnswerObserver.OnWrongAnswer   += HandleWrongAnswer;
+
+        isWired = true;
     }
-    
+
     private void Unwire()
     {
+        if (!isWired) return;
+
         if (countdown && fishSpawner)
             countdown.OnCountdownFinished -= fishSpawner.SpawnFish;
 
@@ -128,6 +130,8 @@ public class GameManager : MonoBehaviour
 
         AnswerObserver.OnCorrectAnswer -= HandleCorrectAnswer;
         AnswerObserver.OnWrongAnswer   -= HandleWrongAnswer;
+
+        isWired = false;
     }
 
     private void Start()
@@ -177,6 +181,7 @@ public class GameManager : MonoBehaviour
         // Reset state
         isGameRunning = false;
         correctCount = 0;
+        wrongCount = 0; 
         UpdateScoreUI();
 
         // Hide end panels if assigned
@@ -251,7 +256,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
+
 
     private void EndGameWin()
     {
@@ -289,12 +294,11 @@ public class GameManager : MonoBehaviour
     {
         // No-op for now. Plug your score UI here if needed.
     }
-    
+
     public void LoseByHearts()
     {
         // Called when HeartController runs out of hearts
         EndGameLose();
     }
-
 }
     

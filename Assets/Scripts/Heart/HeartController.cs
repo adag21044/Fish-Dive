@@ -27,25 +27,35 @@ public class HeartController : MonoBehaviour
     {
         // Find next non-null, active heart
         while (nextIndex < heartDestroyers.Length &&
-               (heartDestroyers[nextIndex] == null ||
+            (heartDestroyers[nextIndex] == null ||
                 !heartDestroyers[nextIndex].gameObject.activeInHierarchy))
         {
             nextIndex++;
         }
 
+        // No hearts left -> tell GameManager we lost by hearts (do NOT reload here)
         if (nextIndex >= heartDestroyers.Length)
         {
-            Debug.LogWarning("No hearts left to destroy.");
-            GameManager.Instance.RetryLevel(); // Retry level if no hearts left
+            Debug.LogWarning("No hearts left to destroy. Notify GameManager (lose).");
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.LoseByHearts(); // ends the game; does not restart
+            }
             return;
         }
 
+        // Destroy this heart and advance
         heartDestroyers[nextIndex].DestroyHeart();
         nextIndex++;
 
+        // If after destroying we ran out of hearts, notify lose as well
         if (nextIndex >= heartDestroyers.Length)
         {
-            GameManager.Instance.StartGame(); // End game if all hearts are destroyed
+            Debug.Log("All hearts destroyed. Notify GameManager (lose).");
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.LoseByHearts(); // still no restart here
+            }
         }
     }
 }
