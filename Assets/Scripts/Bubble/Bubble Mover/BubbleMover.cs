@@ -4,21 +4,18 @@ public class BubbleMover : MonoBehaviour
 {
     [SerializeField] private LevelDatabase levelData;
     [SerializeField] private float speed;
-    [SerializeField] private LevelDataLoader levelDataLoader;
 
     private void Awake()
     {
-        FindLevelDataLoader();
-
-        if (levelDataLoader == null)
+        if (LevelDataLoader.Instance == null)
         {
-            Debug.LogError("LevelDataLoader bulunamadı!");
+            Debug.LogError("LevelDataLoader instance not found. Please ensure it is present in the scene.");
             return;
         }
 
-        SetSpeed(levelData.levels[levelDataLoader.GetLevelIndex()].speed);
+        SetSpeed(levelData.levels[LevelDataLoader.Instance.GetLevelIndex()].speed);
 
-        Debug.Log($"Loaded level data for level {levelDataLoader.GetLevelIndex()} with speed: {speed}");
+        Debug.Log($"Loaded level data for level {LevelDataLoader.Instance.GetLevelIndex()} with speed: {speed}");
         Debug.Log($"Bubble speed set to: {speed}");
     }
 
@@ -31,14 +28,6 @@ public class BubbleMover : MonoBehaviour
     {
         // Move the bubble in the specified direction at the given speed
         transform.position += direction * speed * Time.deltaTime;
-    }
-
-    private void FindLevelDataLoader()
-    {
-        if (levelDataLoader == null)
-        {
-            levelDataLoader = FindFirstObjectByType<LevelDataLoader>();
-        }
     }
 
     private void SetSpeed(float newSpeed)
@@ -58,7 +47,7 @@ public class BubbleMover : MonoBehaviour
 
     private void UpdateSpeedFromLevelData()
     {
-        speed = levelData.levels[levelDataLoader.GetLevelIndex()].speed;
+        speed = levelData.levels[LevelDataLoader.Instance.GetLevelIndex()].speed;
         Debug.Log($"[BubbleMover] Speed updated from level data: {speed}");
     }
 }

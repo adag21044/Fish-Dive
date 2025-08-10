@@ -13,6 +13,6 @@ public class LevelDataSO : ScriptableObject
     public float spawninterval;
     public float speed;
     public float combospeedratio;
-    public float gameDuration = 90f;
+    public float gameDuration;
     public int bubblecount;
 }
