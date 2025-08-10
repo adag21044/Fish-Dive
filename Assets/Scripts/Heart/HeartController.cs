@@ -36,6 +36,7 @@ public class HeartController : MonoBehaviour
         if (nextIndex >= heartDestroyers.Length)
         {
             Debug.LogWarning("No hearts left to destroy.");
+            GameManager.Instance.RetryLevel(); // Retry level if no hearts left
             return;
         }
 
@@ -44,7 +45,7 @@ public class HeartController : MonoBehaviour
 
         if (nextIndex >= heartDestroyers.Length)
         {
-            GameManager.StartGame(); // End game if all hearts are destroyed
+            GameManager.Instance.StartGame(); // End game if all hearts are destroyed
         }
     }
 }

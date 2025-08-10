@@ -11,6 +11,8 @@ public class AnswerObserver : MonoBehaviour
     [SerializeField] private AudioSource wrongAnswerSound;
     private const float levelDuration = 90f;
     private float timer = 0f;
+    public static event Action<int> OnCorrectAnswer;
+    public static event Action OnWrongAnswer;
 
     private void Update()
     {
@@ -72,7 +74,8 @@ public class AnswerObserver : MonoBehaviour
         {
             Debug.Log("Correct number selected: " + bubbleNumberSelector.SelectedBubbleNumber);
             // Handle correct selection logic here
-            IncreaseCorrectAnswerCount();
+            int newCount = IncreaseCorrectAnswerCount();
+            OnCorrectAnswer?.Invoke(newCount);
         }
         else
         {
@@ -88,6 +91,7 @@ public class AnswerObserver : MonoBehaviour
             {
                 Debug.LogWarning("FishAnimator is null! Check assignments in Inspector.");
             }
+            OnWrongAnswer?.Invoke();
         }
         numberAnnouncer?.StartAnnouncing();
     }
