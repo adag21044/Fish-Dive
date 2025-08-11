@@ -15,12 +15,12 @@ public class AnswerObserver : MonoBehaviour
 
     private void Update()
     {
-        RunTimer();
+        //RunTimer();
 
-        if (timer >= levelDuration)
+        /*if (timer >= levelDuration)
         {
             CheckLevelCompletion();
-        }
+        }*/
     }
 
     private void RunTimer()
@@ -36,7 +36,7 @@ public class AnswerObserver : MonoBehaviour
     }
 
 
-    private void CheckLevelCompletion()
+    /*private void CheckLevelCompletion()
     {
         int requiredCorrect = LevelManager.Instance.CurrentLevelData.optimumquestioncount;
 
@@ -52,7 +52,7 @@ public class AnswerObserver : MonoBehaviour
         {
             Debug.Log("Level failed or repeated.");
         }
-    }
+    }*/
 
     private void OnEnable()
     {
