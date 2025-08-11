@@ -3,7 +3,6 @@ using UnityEngine;
 public class BubbleDestroyer : MonoBehaviour
 {
     private BubbleController bubbleController;
-    [SerializeField] private BubbleDestroyAnimator bubbleDestroyAnimator;
     [SerializeField] private BubbleNumberController bubbleNumberController;
     
     private void Start()
@@ -13,7 +12,6 @@ public class BubbleDestroyer : MonoBehaviour
 
     private void InitializeComponents()
     {
-        bubbleDestroyAnimator = GetComponent<BubbleDestroyAnimator>();
         bubbleController = GetComponent<BubbleController>();
     }
 
