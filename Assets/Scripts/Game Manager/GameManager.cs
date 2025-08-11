@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 /// <summary>
 /// Central orchestrator of the gameplay flow:
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private FishSpawner fishSpawner;           // spawns fish (has OnFishSpawned)
     [SerializeField] private BubbleSpawner bubbleSpawner;       // auto-subscribes to fish spawn in its Start
     [SerializeField] private NumberAnnouncer numberAnnouncer;   // announces numbers periodically
-    [SerializeField] private AnswerObserver answerObserver;     // emits correct/wrong events (after our small patch)
+    
     [SerializeField] private HeartController heartController;   // optional: for remaining lives UI
 
     [Header("End UI (Optional)")]
@@ -40,6 +41,14 @@ public class GameManager : MonoBehaviour
 
     private bool pendingRestart = false; // set before reloading so we can auto-start on the fresh scene
     private bool isWired = false;                             // guard to avoid double subscriptions
+
+    [SerializeField] private BubbleNumberSelector bubbleNumberSelector;
+
+    [SerializeField] private FishController fishController;
+    [SerializeField] private int correctAnswerCount = 0;
+    [SerializeField] private AudioSource wrongAnswerSound;
+    public static event Action<int> OnCorrectAnswer;
+    public static event Action OnWrongAnswer;
 
 
 
@@ -77,24 +86,23 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-
+        bubbleNumberSelector.OnFishEnteredTrigger += HandleFishEnteredTrigger;
     }
 
     private void OnDisable()
     {
-
+        bubbleNumberSelector.OnFishEnteredTrigger -= HandleFishEnteredTrigger;
     }
 
     private void RebindReferences()
     {
-        if (!sceneController) sceneController   = FindFirstObjectByType<SceneController>(FindObjectsInactive.Include);
-        if (!countdown)       countdown         = FindFirstObjectByType<Countdown>(FindObjectsInactive.Include);
-        if (!timerController) timerController   = FindFirstObjectByType<TimerController>(FindObjectsInactive.Include);
-        if (!fishSpawner)     fishSpawner       = FindFirstObjectByType<FishSpawner>(FindObjectsInactive.Include);
-        if (!bubbleSpawner)   bubbleSpawner     = FindFirstObjectByType<BubbleSpawner>(FindObjectsInactive.Include);
-        if (!numberAnnouncer) numberAnnouncer   = FindFirstObjectByType<NumberAnnouncer>(FindObjectsInactive.Include);
-        if (!answerObserver)  answerObserver    = FindFirstObjectByType<AnswerObserver>(FindObjectsInactive.Include);
-        if (!heartController) heartController   = FindFirstObjectByType<HeartController>(FindObjectsInactive.Include);
+        if (!sceneController) sceneController = FindFirstObjectByType<SceneController>(FindObjectsInactive.Include);
+        if (!countdown) countdown = FindFirstObjectByType<Countdown>(FindObjectsInactive.Include);
+        if (!timerController) timerController = FindFirstObjectByType<TimerController>(FindObjectsInactive.Include);
+        if (!fishSpawner) fishSpawner = FindFirstObjectByType<FishSpawner>(FindObjectsInactive.Include);
+        if (!bubbleSpawner) bubbleSpawner = FindFirstObjectByType<BubbleSpawner>(FindObjectsInactive.Include);
+        if (!numberAnnouncer) numberAnnouncer = FindFirstObjectByType<NumberAnnouncer>(FindObjectsInactive.Include);
+        if (!heartController) heartController = FindFirstObjectByType<HeartController>(FindObjectsInactive.Include);
 
         // Refresh requiredCorrect on scene rebind if LevelManager is present
         if (LevelManager.Instance != null && LevelManager.Instance.CurrentLevelData != null)
@@ -112,8 +120,7 @@ public class GameManager : MonoBehaviour
             fishSpawner.OnFishSpawned += HandleFishSpawned;
 
         // Global gameplay events
-        AnswerObserver.OnCorrectAnswer += HandleCorrectAnswer;
-        AnswerObserver.OnWrongAnswer   += HandleWrongAnswer;
+        
 
         isWired = true;
     }
@@ -128,8 +135,7 @@ public class GameManager : MonoBehaviour
         if (fishSpawner)
             fishSpawner.OnFishSpawned -= HandleFishSpawned;
 
-        AnswerObserver.OnCorrectAnswer -= HandleCorrectAnswer;
-        AnswerObserver.OnWrongAnswer   -= HandleWrongAnswer;
+        
 
         isWired = false;
     }
@@ -181,7 +187,7 @@ public class GameManager : MonoBehaviour
         // Reset state
         isGameRunning = false;
         correctCount = 0;
-        wrongCount = 0; 
+        wrongCount = 0;
         UpdateScoreUI();
 
         // Hide end panels if assigned
@@ -299,6 +305,52 @@ public class GameManager : MonoBehaviour
     {
         // Called when HeartController runs out of hearts
         EndGameLose();
+    }
+    
+    private int IncreaseCorrectAnswerCount()
+    {
+        Debug.Log("Increasing correct answer count.");
+        correctAnswerCount++;
+        return correctAnswerCount;
+    }
+
+    private void HandleFishEnteredTrigger()
+    {
+        // Logic to handle when a fish enters the trigger
+        Debug.Log("Fish entered the trigger, handling selection logic.");
+
+        if (bubbleNumberSelector.SelectedBubbleNumber == NumberAnnouncer.announcedNumber)
+        {
+            Debug.Log("Correct number selected: " + bubbleNumberSelector.SelectedBubbleNumber);
+            // Handle correct selection logic here
+            int newCount = IncreaseCorrectAnswerCount();
+            OnCorrectAnswer?.Invoke(newCount);
+        }
+        else
+        {
+            Debug.Log("Incorrect number selected: " + bubbleNumberSelector.SelectedBubbleNumber);
+            PlayWrongAnswerSound();
+            // Handle incorrect selection logic here
+            heartController.DestroyNextHeart();
+            if (fishController?.fishAnimator != null)
+            {
+                fishController.fishAnimator.PlayShake();
+            }
+            else
+            {
+                Debug.LogWarning("FishAnimator is null! Check assignments in Inspector.");
+            }
+            OnWrongAnswer?.Invoke();
+        }
+        NumberAnnouncer.Instance.StartAnnouncing();
+    }
+
+    private void PlayWrongAnswerSound()
+    {
+        if (wrongAnswerSound != null)
+        {
+            wrongAnswerSound.Play();
+        }
     }
 }
     
