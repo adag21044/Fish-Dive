@@ -4,6 +4,7 @@ public class HeartController : MonoBehaviour
 {
     [SerializeField] private HeartDestroyer[] heartDestroyers;
     private int nextIndex = 0;
+    public int RemainingHearts => heartDestroyers.Length - nextIndex;
 
     public void DestroyHeart(int index)
     {

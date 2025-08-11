@@ -152,15 +152,25 @@ public class GameManager : MonoBehaviour
     {
         if (!isGameRunning || timerController == null) return;
 
-        // Poll timer to decide time-up
         float t = timerController.GetTimer();
+
+        // ✅ Time-up doğru kontrol
         if (t <= 0f)
         {
-            // Time up -> decide win/lose based on requiredCorrect
             if (correctCount >= requiredCorrect) EndGameWin();
-            else EndGameLose();
+            else RetryLevel();
+            return;
         }
-    }
+
+        // ✅ Kalpler biter bitmez reload etmek istiyorsan:
+        if (heartController && heartController.RemainingHearts <= 0)
+        {
+            Debug.Log("[GameManager] Retry Level (no hearts left).");
+            RetryLevel();
+            return;
+        }
+}
+
 
     // ===== Scene reload handling =====
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -304,7 +314,7 @@ public class GameManager : MonoBehaviour
     public void LoseByHearts()
     {
         // Called when HeartController runs out of hearts
-        EndGameLose();
+        RetryLevel(); 
     }
     
     private int IncreaseCorrectAnswerCount()
