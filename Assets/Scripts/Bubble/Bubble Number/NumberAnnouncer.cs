@@ -4,6 +4,7 @@ using System;
 
 public class NumberAnnouncer : MonoBehaviour
 {
+    public static NumberAnnouncer Instance;
     [SerializeField] private AudioClip[] numberClips; // 0 zero, 1 one, 2 two, etc.
     [SerializeField] private AudioSource audioSource;
     
@@ -12,6 +13,14 @@ public class NumberAnnouncer : MonoBehaviour
     [SerializeField] private float announceInterval = 5f; // Time interval between announcements
     private float announceTimer;
     private bool isRunning = false;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
     private void Update()
     {

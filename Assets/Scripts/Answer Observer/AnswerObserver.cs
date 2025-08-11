@@ -7,7 +7,6 @@ public class AnswerObserver : MonoBehaviour
     [SerializeField] private HeartController heartController;
     [SerializeField] private FishController fishController;
     [SerializeField] private int correctAnswerCount = 0;
-    [SerializeField] private NumberAnnouncer numberAnnouncer;
     [SerializeField] private AudioSource wrongAnswerSound;
     private const float levelDuration = 90f;
     private float timer = 0f;
@@ -93,7 +92,7 @@ public class AnswerObserver : MonoBehaviour
             }
             OnWrongAnswer?.Invoke();
         }
-        numberAnnouncer?.StartAnnouncing();
+        NumberAnnouncer.Instance.StartAnnouncing();
     }
 
     private void PlayWrongAnswerSound()
