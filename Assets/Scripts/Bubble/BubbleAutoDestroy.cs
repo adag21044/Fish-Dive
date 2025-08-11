@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class BubbleAutoDestroy : MonoBehaviour
 {
+    private static BubbleAutoDestroy instance;
+    public static BubbleAutoDestroy Instance => instance;
     [SerializeField] private float topYLimit = 5.2f;
     public event Action OnBubbleReachedTop; 
 

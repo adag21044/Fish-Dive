@@ -7,27 +7,26 @@ public class BubbleController : MonoBehaviour
     [SerializeField] private BubbleDestroyAnimator destroyAnimator;
     [SerializeField] private Collider2D bubbleCollider;
     [SerializeField] private BubbleSoundPlayer soundPlayer;
-
+    [SerializeField]private BubbleAutoDestroy bubbleAutoDestroy;
     private BubbleSpawner bubbleSpawner;
-    private BubbleAutoDestroy bubbleAutoDestroy;
+    
     private Vector2 spawnPosition;
 
     private bool isPopped = false;
     
     private void Awake()
     {
-        bubbleAutoDestroy = GetComponent<BubbleAutoDestroy>();
+        bubbleAutoDestroy.OnBubbleReachedTop += HandleAutoDestroy;      
+    }
 
-        if (bubbleAutoDestroy != null)
-        {
-            bubbleAutoDestroy.OnBubbleReachedTop += HandleAutoDestroy;
-        }
-            
+    private void OnEnable()
+    {
+        
     }
 
     private void HandleAutoDestroy()
     {
-        DisappearAtTop(); 
+        DisappearAtTop();
     }
         
     public void Pop()
