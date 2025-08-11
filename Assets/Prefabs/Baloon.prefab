@@ -150,8 +150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0258cb2a28a4443a41ac6ca110a2fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubbleDestroyAnimator: {fileID: 795328689489646607}
-  bubbleNumberController: {fileID: 2793849946525285125}
 --- !u!114 &795328689489646607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,6 +186,7 @@ MonoBehaviour:
   destroyAnimator: {fileID: 795328689489646607}
   bubbleCollider: {fileID: 8939501249846913493}
   soundPlayer: {fileID: 4665999572899566744}
+  numberController: {fileID: 2793849946525285125}
 --- !u!114 &4665999572899566744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +334,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelData: {fileID: 11400000, guid: bc1c2d8aca32c3c47af538e8088a4802, type: 2}
   speed: 2.5
-  levelDataLoader: {fileID: 0}
 --- !u!114 &2887745601413526286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,7 +347,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topYLimit: 5.2
-  bubbleController: {fileID: 4808815536292443768}
 --- !u!1 &7259994380169853582
 GameObject:
   m_ObjectHideFlags: 0

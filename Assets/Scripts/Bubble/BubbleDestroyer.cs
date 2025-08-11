@@ -1,33 +1,13 @@
 using UnityEngine;
+using System;
 
 public class BubbleDestroyer : MonoBehaviour
 {
-    private BubbleController bubbleController;
-    [SerializeField] private BubbleNumberController bubbleNumberController;
-    
-    private void Start()
-    {
-        InitializeComponents();
-    }
-
-    private void InitializeComponents()
-    {
-        bubbleController = GetComponent<BubbleController>();
-    }
+    // BubbleController dinleyecek
+    public event Action<Collider2D> OnBubbleHit;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Fish"))
-        {
-            bubbleNumberController.DeactiveNumber();
-            bubbleController.Pop();
-            Debug.Log(gameObject.name + " popped by fish");
-        }
-        else if (other.CompareTag("Destroyer"))
-        {
-            bubbleNumberController.DeactiveNumber();
-            bubbleController.Pop();
-            Debug.Log(gameObject.name + " popped by destroyer");
-        }
+        OnBubbleHit?.Invoke(other); // Hiçbir şey bilmez, sadece bildirir
     }
 }
