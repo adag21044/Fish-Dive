@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class TimerController : MonoBehaviour
@@ -7,6 +8,7 @@ public class TimerController : MonoBehaviour
 
     [SerializeField] private TimerView timerView;
     private bool isRunning = false;
+    public static event Action OnTimerStarted; // 🎯 event for when the timer starts
 
     private void Awake()
     {
@@ -16,6 +18,11 @@ public class TimerController : MonoBehaviour
             return;
         }
         Instance = this;
+    }
+
+    private void OnEnable()
+    {
+
     }
 
     private void Update()
@@ -47,6 +54,7 @@ public class TimerController : MonoBehaviour
         isRunning = true;
 
         Debug.Log($"Timer started with {seconds} seconds.");
+        OnTimerStarted?.Invoke(); // 🎯 event trigging
         InvokeRepeating(nameof(UpdateTimer), 1f, 1f);
     }
 

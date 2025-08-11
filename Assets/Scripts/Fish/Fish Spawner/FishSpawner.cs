@@ -7,7 +7,6 @@ public class FishSpawner : MonoBehaviour
     [SerializeField] private GameObject fish;
     [SerializeField] Transform spawnPoint;
     public event Action OnFishSpawned; // 🎯 trigger when fish spawn
-    [SerializeField] private TimerController timer;
     
     public void SpawnFish() // artık dışarıdan çağrılabilir
     {
@@ -38,10 +37,7 @@ public class FishSpawner : MonoBehaviour
             Debug.LogWarning("Fish or spawn point is not assigned in the FishSpawner.");
         }
 
-        if (timer != null)
-        {
-            timer.StartTimer(); // ✅ oyun süresi başlasın
-            Debug.Log("Timer started after fish spawn.");
-        }
+        TimerController.OnTimerStarted += OnFishSpawned;
+        Debug.Log("Timer started after fish spawn.");
     }
 }
