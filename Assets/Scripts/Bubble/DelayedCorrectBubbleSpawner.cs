@@ -6,7 +6,6 @@ using DG.Tweening;
 public class DelayedCorrectBubbleSpawner : MonoBehaviour
 {
     [SerializeField] private BubbleSpawner bubbleSpawner;
-    [SerializeField] private NumberAnnouncer numberAnnouncer;
     [SerializeField] private int delayCount = 3; 
     private int delayCounter = 0;
     private bool correctBubbleSpawned = false;
