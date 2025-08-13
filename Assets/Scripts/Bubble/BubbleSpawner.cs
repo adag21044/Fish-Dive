@@ -4,9 +4,10 @@ using DG.Tweening;
 
 public class BubbleSpawner : MonoBehaviour
 {
-    [SerializeField] public BubbleSO[] bubbleData; // Reference to the BubbleSO scriptable object
+    [SerializeField] public BubbleSO[] bubbleData;
     [SerializeField] private GameObject bubblePrefab;
-    public GameObject BubblePrefab => bubblePrefab; // getter
+    public GameObject BubblePrefab => bubblePrefab;
+
     [SerializeField] private int minNumber = 1;
     [SerializeField] private int maxNumber = 10;
 
@@ -16,9 +17,23 @@ public class BubbleSpawner : MonoBehaviour
     [SerializeField] private float yMin = -2.75f;
     [SerializeField] private float yMax = 3.9f;
     [SerializeField] private float minDistanceBetweenBubbles = 1.0f;
-    [SerializeField] private float spawnRate = 10.0f; // Spawn interval in seconds
+    [SerializeField] private float spawnRate = 10.0f;
+
     private List<Vector2> existingBubblePositions = new List<Vector2>();
     public List<GameObject> spawnedBubbles = new List<GameObject>();
+
+    private Tween spawnLoopTween;
+
+    private void OnEnable()
+    {
+        // 🔔 Listen force-correct-bubble requests from DCB
+        DelayedCorrectBubbleSpawner.OnForceCorrectBubble += SpawnCorrectBubbleNow;
+    }
+
+    private void OnDisable()
+    {
+        DelayedCorrectBubbleSpawner.OnForceCorrectBubble -= SpawnCorrectBubbleNow;
+    }
 
     private void Start()
     {
@@ -27,26 +42,19 @@ public class BubbleSpawner : MonoBehaviour
         SpawnInitialBubblesFromLevelData();
     }
 
-    // Only for testing purposes
-    private void Update()
+    private void Update() // test only
     {
         if (Input.GetKeyDown(KeyCode.Space))
-        {
             SpawnBubble();
-        }
     }
 
     private void SubscribeToFishSpawner()
     {
         var fishSpawner = FindFirstObjectByType<FishSpawner>();
         if (fishSpawner != null)
-        {
             fishSpawner.OnFishSpawned += BeginBubbleSpawning;
-        }
         else
-        {
             Debug.LogWarning("FishSpawner not found in the scene.");
-        }
     }
 
     private void LoadLevelParameters()
@@ -62,17 +70,12 @@ public class BubbleSpawner : MonoBehaviour
         if (spawnLoopTween != null && spawnLoopTween.IsActive())
             spawnLoopTween.Kill();
 
-        // İlk baloncuğu hemen spawn’la (isterseniz bu satırı kaldırabilirsiniz)
-        SpawnBubble();
-
-        // Ardından döngüyü başlat
-        StartSpawnLoop();
+        SpawnBubble();      // immediate first
+        StartSpawnLoop();   // then loop
     }
 
     private void StartSpawnLoop()
     {
-        Debug.Log($"Spawning bubble after {spawnRate} seconds");
-
         spawnLoopTween = DOVirtual.DelayedCall(spawnRate, () =>
         {
             SpawnBubble();
@@ -80,35 +83,11 @@ public class BubbleSpawner : MonoBehaviour
         }, false);
     }
 
-    private void SpawnInitialBubbles(int count)
-    {
-        for (int i = 0; i < count; i++)
-        {
-            SpawnBubble();
-        }
-    }
-
-    private Tween spawnLoopTween;
-
-    private void SpawnBubblesSequentially(int count)
-    {
-        float delayBetweenEach = 0.4f; // balık boyu kadar zaman
-
-        for (int i = 0; i < count; i++)
-        {
-            float delay = i * delayBetweenEach;
-
-            DOVirtual.DelayedCall(delay, () =>
-            {
-                SpawnBubble();
-            });
-        }
-    }
-
     private void SpawnInitialBubblesFromLevelData()
     {
         int initialCount = LevelManager.Instance.CurrentLevelData.bubblecount;
-        SpawnInitialBubbles(initialCount);
+        for (int i = 0; i < initialCount; i++)
+            SpawnBubble();
     }
 
     private void OnDestroy()
@@ -117,7 +96,8 @@ public class BubbleSpawner : MonoBehaviour
             spawnLoopTween.Kill();
     }
 
-    private void SpawnBubble()
+    // ✅ Overload: if forcedNumber is provided, spawn with that number
+    private void SpawnBubble(int? forcedNumber = null)
     {
         if (bubbleData == null || bubblePrefab == null)
         {
@@ -151,36 +131,28 @@ public class BubbleSpawner : MonoBehaviour
 
         int index = Random.Range(0, bubbleData.Length);
         BubbleSO selectedBubble = bubbleData[index];
-        int randomNumber = Random.Range(minNumber, maxNumber + 1);
+        int numberToUse = forcedNumber ?? Random.Range(minNumber, maxNumber + 1);
 
         GameObject bubble = Instantiate(bubblePrefab, spawnPos, Quaternion.identity);
 
-        // Set the bubble's scale to zero initially
         bubble.transform.localScale = Vector3.zero;
+        bubble.transform.DOScale(0.5f, 0.35f).SetEase(Ease.InSine);
 
-        // Animate the bubble to its full size
-        bubble.transform.DOScale(0.5f, 0.35f)
-            .SetEase(Ease.InSine);
-
-        BubbleNumberController bubbleNumberController = bubble.GetComponent<BubbleNumberController>();
+        var bubbleNumberController = bubble.GetComponent<BubbleNumberController>();
         if (bubbleNumberController != null)
-        {
-            bubbleNumberController.Setup(selectedBubble.bubbleSprite, randomNumber);
-        }
-        BubbleController bubbleController = bubble.GetComponent<BubbleController>();
+            bubbleNumberController.Setup(selectedBubble.bubbleSprite, numberToUse);
+
+        var bubbleController = bubble.GetComponent<BubbleController>();
         if (bubbleController != null)
-        {
             bubbleController.Initialize(spawnPos, this);
-        }
 
         existingBubblePositions.Add(spawnPos);
-
-        DOVirtual.DelayedCall(3f, () =>
-        {
-            FreePosition(spawnPos);
-        });
         spawnedBubbles.Add(bubble);
-        FindFirstObjectByType<DelayedCorrectBubbleSpawner>()?.NotifyBubbleSpawned();
+
+        DOVirtual.DelayedCall(3f, () => FreePosition(spawnPos));
+
+        // ❌ eski çağrı kaldırıldı:
+        // FindFirstObjectByType<DelayedCorrectBubbleSpawner>()?.NotifyBubbleSpawned();
     }
 
     private bool IsPositionSafe(Vector2 newPos)
@@ -191,6 +163,12 @@ public class BubbleSpawner : MonoBehaviour
                 return false;
         }
         return true;
+    }
+
+    private void SpawnCorrectBubbleNow(int announcedNumber)
+    {
+        // 🔧 DCB event’ini dinler ve o sayıda balonu hemen spawn’lar
+        SpawnBubble(announcedNumber);
     }
 
     private void OnDrawGizmos()
@@ -205,5 +183,5 @@ public class BubbleSpawner : MonoBehaviour
     public void FreePosition(Vector2 position)
     {
         existingBubblePositions.Remove(position);
-    }   
+    }
 }

@@ -4,6 +4,9 @@ using System;
 
 public class BubbleController : MonoBehaviour
 {
+    public static event Action<BubbleController, int> OnAnyBubbleSpawned;   // (self, number)
+    public static event Action<BubbleController> OnAnyBubbleDestroyed;
+
     [Header("Components & Dependencies")]
     [SerializeField] private BubbleDestroyAnimator destroyAnimator;
     [SerializeField] private Collider2D bubbleCollider;
@@ -15,7 +18,9 @@ public class BubbleController : MonoBehaviour
     private Vector2 spawnPosition;
     private bool isPopped = false;
 
-    private BubbleDestroyer bubbleDestroyer; // sadece aynı GO’dan component alıyoruz
+    private BubbleDestroyer bubbleDestroyer; 
+    private bool spawnEventRaised = false;
+    private bool destroyEventRaised = false;
 
     private void Awake()
     {
@@ -32,6 +37,17 @@ public class BubbleController : MonoBehaviour
         // Güvenlik: inspector atanmamışsa kendini bul
         if (numberController == null)
             numberController = GetComponent<BubbleNumberController>();
+    }
+
+    private void Start()
+    {
+        // 🔔 Publish "spawned" after Setup() has already run (Spawner calls Setup before Start).
+        if (!spawnEventRaised)
+        {
+            int num = numberController != null ? numberController.bubbleNumber : -1;
+            OnAnyBubbleSpawned?.Invoke(this, num);
+            spawnEventRaised = true;
+        }
     }
 
     private void OnDestroy()
@@ -76,6 +92,12 @@ public class BubbleController : MonoBehaviour
         if (destroyAnimator != null)
             destroyAnimator.StartDestroyAnimation();
 
+        if (!destroyEventRaised)
+        {
+            OnAnyBubbleDestroyed?.Invoke(this);
+            destroyEventRaised = true;
+        }    
+
         if (bubbleSpawner != null)
             bubbleSpawner.FreePosition(spawnPosition);
     }
@@ -104,6 +126,12 @@ public class BubbleController : MonoBehaviour
 
         seq.OnComplete(() =>
         {
+            if (!destroyEventRaised)
+            {
+                OnAnyBubbleDestroyed?.Invoke(this);
+                destroyEventRaised = true;
+            }
+
             if (bubbleSpawner != null)
                 bubbleSpawner.FreePosition(spawnPosition);
 
